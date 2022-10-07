@@ -31,7 +31,10 @@
       <el-table-column label="歌手图片" width="110" align="center">
         <template slot-scope="scope">
           <div class="singer-img">
-            <img :src="getUrl(scope.row.pic)" style="width=100%" />
+            <img
+              :src="getUrl(scope.row.pic)"
+              style="width: 100%; aspect-ratio: 1/1"
+            />
           </div>
           <el-upload
             :action="uploadUrl(scope.row.id)"
@@ -285,6 +288,7 @@ export default {
         .then((res) => {
           if (res.code == 1) {
             this.getData();
+            this.registerForm = {};
             this.notify("添加成功", "success");
           } else {
             this.notify("添加失败", "error");
@@ -374,7 +378,6 @@ export default {
 }
 
 .handle-box {
-  margin-bottom: 20px;
 }
 
 .singer-img {

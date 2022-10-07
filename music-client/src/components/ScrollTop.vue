@@ -1,0 +1,21 @@
+<template>
+  <div class="scroll-top" @click="returnTop">
+    <div class="box-in"></div>
+  </div>
+</template>
+<script>
+export default {
+  name: "ScrollTop",
+  data() {
+    return {};
+  },
+  methods: {
+    returnTop() {
+      document.documentElement.scrollTop = document.body.scrollTop = 0;
+    },
+  },
+};
+</script>
+<style lang="less" scoped>
+@import "@/assets/css/scroll-top.css";
+</style>

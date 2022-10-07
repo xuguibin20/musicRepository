@@ -1,0 +1,3 @@
+#app { background-color: #e6ecf0; display: flex; justify-content: flex-start; align-items: stretch; flex-direction: column; flex-wrap: nowrap; }
+
+.music-content { flex: 1; }

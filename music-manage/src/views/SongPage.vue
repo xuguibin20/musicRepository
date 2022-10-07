@@ -94,27 +94,29 @@
         action=""
         id="tf"
       >
-        <div>
-          <label for="">歌名</label>
-          <el-input type="text" name="name"></el-input>
-        </div>
-        <div>
-          <label for="">专辑</label>
-          <el-input type="text" name="introduction"></el-input>
-        </div>
-        <div>
-          <label for="">歌词</label>
-          <el-input type="textarea" name="lyric"></el-input>
-        </div>
+        <el-form-item prop="name" label="歌名" size="mini">
+          <el-input v-model="registerForm.name" placeholder="歌名"></el-input>
+        </el-form-item>
+        <el-form-item prop="introduction" label="专辑" size="mini">
+          <el-input
+            v-model="registerForm.introduction"
+            placeholder="专辑"
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="lyric" label="歌词" size="mini">
+          <el-input
+            v-model="registerForm.lyric"
+            placeholder="歌词"
+            type="textarea"
+          ></el-input>
+        </el-form-item>
+
         <div>
           <label for="">歌曲上传</label>
-          <input type="file" name="file" />
-        </div>
-        <div>
-          <label for="">歌名</label>
-          <el-input type="text" name="name"></el-input>
+          <input type="file" name="file" id="file" />
         </div>
       </el-form>
+
       <span slot="footer">
         <el-button size="mini" @click="centerDialogVisible = false"
           >取消</el-button
@@ -160,7 +162,7 @@
 </template>
 <script>
 import { mixin } from "@/mixins/index";
-import {} from "@/api/index";
+import { getAllSinger } from "@/api/index";
 export default {
   mixins: [mixin],
   data() {
@@ -173,11 +175,10 @@ export default {
       //添加框
       registerForm: {
         name: "",
-        singerName: "",
         lyric: "",
         introduction: "",
       },
-      //添加框
+      //修改框
       form: {
         id: "",
         name: "",
@@ -219,8 +220,8 @@ export default {
     },
   },
   created() {
-    this.singerId = this.$$router.query.id;
-    this.singerName = this.$$router.query.name;
+    this.singerId = this.$route.query.id;
+    this.singerName = this.$route.query.name;
     this.getData();
   },
   methods: {
@@ -232,14 +233,43 @@ export default {
     getData() {
       this.tempData = [];
       this.tableData = [];
-      getAllSinger().then((res) => {
-        this.tableData = res;
-        this.tempData = res;
-      });
+      // getAllSinger().then((res) => {
+      //   this.tableData = res;
+      //   this.tempData = res;
+      // });
     },
     //添加歌曲
     addSong() {
-      this.centerDialogVisible = false;
+      let _this = this;
+      var form = new FormData(document.getElementById("tf"));
+      form.append("singerId", this.singerId);
+      form.append("introduction", this.registerForm.introduction);
+      form.append("lyric", this.registerForm.lyric);
+      form.set("name", this.singerName + "-" + this.registerForm.name);
+      if (!form.get("lyric")) {
+        form.set("lyric", "[00:00:00]暂无歌词");
+      }
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function () {
+        //req.readyState == 4 获取到返回的完整数据
+        // req.status == 200 和后台正常交互完成了
+        if (req.readyState == 4 && req.status == 200) {
+          let res = JSON.parse(req.response);
+          if (res.code == 1) {
+            _this.getData();
+
+            _this.registerForm = {};
+            //bug 上传文件不会清空
+            _this.notify("保存成功", "success");
+          } else {
+            _this.notify("保存失败", "error");
+          }
+          //刷新页面
+        }
+      };
+      req.open("post", `${_this.$store.state.HOST}/song/add`, false);
+      req.send(form);
+      _this.centerDialogVisible = false;
     },
     //弹出编辑页面
     handleEdit(row) {
@@ -265,7 +295,6 @@ export default {
       // params.append("birth", datetime);
       // params.append("location", this.form.location);
       // params.append("introduction", this.form.introduction);
-
       // updateSinger(params)
       //   .then((res) => {
       //     if (res.code == 1) {
@@ -300,11 +329,10 @@ export default {
       //   });
       // this.delVisible = false;
     },
-    
   },
 };
 </script>
-<style scoped>
+<style lang="less" scoped>
 .table {
   min-width: 800px;
 }
@@ -317,7 +345,6 @@ export default {
 }
 
 .handle-box {
-  margin-bottom: 20px;
 }
 
 .song-img {

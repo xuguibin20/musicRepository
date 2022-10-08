@@ -34,15 +34,11 @@
       <el-table-column label="歌曲图片" width="110" align="center">
         <template slot-scope="scope">
           <div class="song-img">
-            <img :src="getUrl(scope.row.pic)" style="width=100%" />
+            <img
+              :src="getUrl(scope.row.pic)"
+              style="width: 100%; aspect-ratio: 1 / 1"
+            />
           </div>
-          <el-upload
-            :action="uploadUrl(scope.row.id)"
-            :before-upload="beforeAvatorUpload"
-            :on-success="handleAvatorSuccess"
-          >
-            <el-button size="mini">更新图片</el-button>
-          </el-upload>
         </template>
       </el-table-column>
       <el-table-column prop="name" label="歌手-歌名" width="120" align="center">
@@ -56,9 +52,36 @@
       </el-table-column>
       <el-table-column label="歌词" align="center">
         <template slot-scope="scope">
-          {{ scope.row.lyric }}
+          <ul style="height: 100px; overflow: scroll">
+            <li
+              v-for="(item, index) in parseLyric(scope.row.lyric)"
+              :key="index"
+            >
+              {{ item }}
+            </li>
+          </ul>
         </template>
       </el-table-column>
+      <el-table-column label="资源更新" width="110" align="center">
+        <template slot-scope="scope">
+          <el-upload
+            :action="uploadPicUrl(scope.row.id)"
+            :before-upload="beforePicUpload"
+            :on-success="handleAvatorSuccess"
+          >
+            <el-button size="mini">更新图片</el-button>
+          </el-upload>
+          <br />
+          <el-upload
+            :action="uploadSongUrl(scope.row.id)"
+            :before-upload="beforeSongUpload"
+            :on-success="handleSongSuccess"
+          >
+            <el-button size="mini">更新歌曲</el-button>
+          </el-upload>
+        </template>
+      </el-table-column>
+
       <el-table-column label="操作" width="170px" align="center">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -91,7 +114,6 @@
         :model="registerForm"
         ref="registerForm"
         label-width="80px"
-        action=""
         id="tf"
       >
         <el-form-item prop="name" label="歌名" size="mini">
@@ -125,7 +147,7 @@
       </span>
     </el-dialog>
     <el-dialog
-      title="修改歌曲"
+      title="编辑歌曲"
       :visible.sync="editVisible"
       width="400px"
       center
@@ -162,7 +184,7 @@
 </template>
 <script>
 import { mixin } from "@/mixins/index";
-import { getAllSinger } from "@/api/index";
+import { songOfSingerId, updateSongMsg, delSong } from "@/api/index";
 export default {
   mixins: [mixin],
   data() {
@@ -229,14 +251,15 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-    //查询所有歌手
+    //根据歌手id查询歌曲
     getData() {
       this.tempData = [];
       this.tableData = [];
-      // getAllSinger().then((res) => {
-      //   this.tableData = res;
-      //   this.tempData = res;
-      // });
+      songOfSingerId(this.singerId).then((res) => {
+        this.tableData = res;
+        this.tempData = res;
+        this.currentPage = 1;
+      });
     },
     //添加歌曲
     addSong() {
@@ -273,61 +296,101 @@ export default {
     },
     //弹出编辑页面
     handleEdit(row) {
-      // this.editVisible = true;
-      // this.form = {
-      //   id: row.id,
-      //   name: row.name,
-      //   sex: row.sex,
-      //   birth: row.birth,
-      //   location: row.location,
-      //   introduction: row.introduction,
-      // };
+      this.editVisible = true;
+      this.form = {
+        id: row.id,
+        name: row.name,
+        introduction: row.introduction,
+        lyric: row.lyric,
+      };
     },
     // 保存编辑页面修改的数据
     editSave() {
-      // let date = new Date(this.form.birth);
-      // let datetime =
-      //   date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-      // let params = new URLSearchParams();
-      // params.append("id", this.form.id);
-      // params.append("name", this.form.name);
-      // params.append("sex", this.form.sex);
-      // params.append("birth", datetime);
-      // params.append("location", this.form.location);
-      // params.append("introduction", this.form.introduction);
-      // updateSinger(params)
-      //   .then((res) => {
-      //     if (res.code == 1) {
-      //       this.getData();
-      //       this.notify("编辑成功", "success");
-      //     } else {
-      //       this.notify("编辑失败", "error");
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-      // this.editVisible = false;
+      let params = new URLSearchParams();
+      params.append("id", this.form.id);
+      params.append("name", this.form.name);
+      params.append("introduction", this.form.introduction);
+      params.append("lyric", this.form.lyric);
+      updateSongMsg(params)
+        .then((res) => {
+          if (res.code == 1) {
+            this.getData();
+            this.notify("编辑成功", "success");
+          } else {
+            this.notify("编辑失败", "error");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      this.editVisible = false;
     },
     //更新图片
-    uploadUrl(id) {
-      // return `${this.$store.state.HOST}/song/updateSongPic?id=${id}`;
+    uploadPicUrl(id) {
+      return `${this.$store.state.HOST}/song/updateSongPic?id=${id}`;
     },
-    //删除一名歌手
+    //更新歌曲
+    uploadSongUrl(id) {
+      return `${this.$store.state.HOST}/song/updateSong?id=${id}`;
+    },
+    //删除一首歌
     deleteRow() {
-      // delSinger(this.idx)
-      //   .then((res) => {
-      //     if (res) {
-      //       this.getData();
-      //       this.notify("删除成功", "success");
-      //     } else {
-      //       this.notify("删除失败", "error");
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-      // this.delVisible = false;
+      delSong(this.idx)
+        .then((res) => {
+          if (res) {
+            this.getData();
+            this.notify("删除成功", "success");
+          } else {
+            this.notify("删除失败", "error");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      this.delVisible = false;
+    },
+    //解析歌词
+    parseLyric(text) {
+      let lines = text.split("\n");
+      let pattern = /\[\d{2}:\d{2}.(\d{3}|\d{2})\]/g;
+      let result = [];
+      if (text == "") {
+        result = "暂无歌词";
+      } else {
+        for (let item of lines) {
+          let value = item.replace(pattern, "");
+          result.push(value);
+        }
+      }
+      return result;
+    },
+    //更新歌曲之前的检验
+    beforeSongUpload(file) {
+      var testMsg = file.name.substring(file.name.lastIndexOf(".") + 1);
+      if (testMsg != "mp3") {
+        this.$message({
+          meassage: "上传文件只能是mp3格式",
+          type: "error",
+        });
+        return false;
+      }
+      return true;
+    },
+    //更新歌曲成功之后要做的工作
+    handleSongSuccess(res) {
+      let _this = this;
+      if (res.code == 1) {
+        _this.getData();
+        _this.$notify({
+          title: "更新成功",
+          type: "success",
+        });
+      } else {
+        _this.$notify({
+          title: "更新失败",
+          type: "error",
+        });
+      }
     },
   },
 };
@@ -348,7 +411,6 @@ export default {
 }
 
 .song-img {
-  width: 100%;
   height: 80px;
   border-radius: 5px;
   margin-bottom: 5px;

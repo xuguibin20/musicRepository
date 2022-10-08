@@ -37,8 +37,8 @@
             />
           </div>
           <el-upload
-            :action="uploadUrl(scope.row.id)"
-            :before-upload="beforeAvatorUpload"
+            :action="uploadPicUrl(scope.row.id)"
+            :before-upload="beforePicUpload"
             :on-success="handleAvatorSuccess"
           >
             <el-button size="mini">更新图片</el-button>
@@ -269,6 +269,7 @@ export default {
       getAllSinger().then((res) => {
         this.tableData = res;
         this.tempData = res;
+        this.currentPage = 1;
       });
     },
     //添加歌手
@@ -279,7 +280,7 @@ export default {
       let params = new URLSearchParams();
       params.append("name", this.registerForm.name);
       params.append("sex", this.registerForm.sex);
-      params.append("pic", "img/singerPic/mn.jpg");
+      // params.append("pic", "img/singerPic/mn.jpg");
       params.append("birth", datetime);
       params.append("location", this.registerForm.location);
       params.append("introduction", this.registerForm.introduction);
@@ -339,7 +340,7 @@ export default {
       this.editVisible = false;
     },
     //更新图片
-    uploadUrl(id) {
+    uploadPicUrl(id) {
       return `${this.$store.state.HOST}/singer/updateSingerPic?id=${id}`;
     },
     //删除一名歌手
@@ -381,7 +382,6 @@ export default {
 }
 
 .singer-img {
-  width: 100%;
   height: 80px;
   border-radius: 5px;
   margin-bottom: 5px;

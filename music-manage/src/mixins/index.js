@@ -28,8 +28,8 @@ export const mixin = {
     attachBirth(val) {
       return String(val).substr(0, 10);
     },
-    //上传图片之前的检验
-    beforeAvatorUpload(file) {
+    //更新图片之前的检验
+    beforePicUpload(file) {
       const isJPG = (file.type === 'image/jpeg') || (file.type === 'image/png');
       if (!isJPG) {
         this.$message.error('上传图片必须只能是jpg或者是png格式');
@@ -43,7 +43,7 @@ export const mixin = {
       }
         return true;
     },
-    //上传图片成功之后要做的工作
+    //更新图片成功之后要做的工作
     handleAvatorSuccess(res) {
       let _this = this;
       if (res.code == 1) {

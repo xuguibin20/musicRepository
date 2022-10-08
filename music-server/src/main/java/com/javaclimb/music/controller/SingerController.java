@@ -39,7 +39,8 @@ public class SingerController {
         //获取前端传过来的参数
         String name = request.getParameter("name").trim();
         String sex = request.getParameter("sex").trim();
-        String pic = request.getParameter("pic").trim();////歌手头像，这里在前端写死先，在后端接收；也可以前端不写，在后端写死String pic = "img/singerPic/**.jpg";
+        String pic = "img/singerPic/mn.jpg";//默认图片，这里在后端写死先；也可以后端接收不写，在前端写死  params.append("pic", "img/singerPic/**.jpg");
+//        String pic = request.getParameter("pic").trim();////歌手头像，这里在前端写死先，在后端接收；也可以前端不写，在后端写死String pic = "img/singerPic/**.jpg";
         String birth = request.getParameter("birth").trim();
         String location = request.getParameter("location").trim();
         String introduction = request.getParameter("introduction").trim();
@@ -95,8 +96,7 @@ public class SingerController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-//保存到歌手的对象中
-
+        //保存到歌手的对象中
         Singer singer = new Singer();
         singer.setName(name);
         singer.setId(Integer.parseInt(id));
@@ -123,8 +123,15 @@ public class SingerController {
      */
     @RequestMapping(value ="/delete",method = RequestMethod.GET)
     public Object deleteSinger(HttpServletRequest request){
-        JSONObject jsonObject = new JSONObject();
+        //-TOOD 先查询到数据库中对应的文件地址，删除掉它再进行下面的代码
         String id = request.getParameter("id").trim();//主键
+        //根据歌曲的id，找到对应的pic地址
+        String Path = singerService.selectByPrimaryKey(Integer.parseInt(id)).getPic();
+        //文件路径
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") ;
+        //文件在后端文件夹的地址
+        File dest = new File(filePath  +   Path);
+        dest.delete();
         boolean flag = singerService.delete(Integer.parseInt(id));
         return flag;
 
@@ -176,6 +183,19 @@ public class SingerController {
           jsonObject.put(Consts.MSG,"文件上传失败");
           return jsonObject;
       }
+        //-TOOD 先查询到数据库中对应的文件地址，删除掉它再进行下面的代码
+        //根据歌曲的id，找到对应的pic地址
+        String Path = singerService.selectByPrimaryKey(id).getPic();
+        String pic = "img/singerPic/mn.jpg";
+        if(Path.equals(pic) ){
+            int a = -1;//什么都不做
+        }else{
+            //文件路径
+            String filePath1 = System.getProperty("user.dir") + System.getProperty("file.separator") ;
+            //文件在后端文件夹的地址
+            File dest1 = new File(filePath1  +   Path);
+            dest1.delete();
+        }
       //文件名=当前时间（毫秒）+原来的文件名
       String fileName = System.currentTimeMillis()+avatorFile.getOriginalFilename();
       //文件路径

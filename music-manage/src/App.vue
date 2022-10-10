@@ -1,13 +1,15 @@
 <template>
   <div id="app">
+    <SongAudio></SongAudio>
     <router-view />
   </div>
 </template>
 
 <script>
+import SongAudio from "@/components/SongAudio.vue";
 export default {
   name: "App",
-  components: {},
+  components: { SongAudio },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less"></style>

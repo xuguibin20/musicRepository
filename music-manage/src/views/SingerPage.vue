@@ -366,7 +366,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="less" scoped>
 .table {
   min-width: 800px;
 }
@@ -376,9 +376,6 @@ export default {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
-}
-
-.handle-box {
 }
 
 .singer-img {

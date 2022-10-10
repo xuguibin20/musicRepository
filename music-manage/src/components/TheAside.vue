@@ -63,7 +63,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="less" scoped>
 .sidebar {
   display: block;
   position: absolute;

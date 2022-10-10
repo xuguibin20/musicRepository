@@ -38,6 +38,24 @@
               :src="getUrl(scope.row.pic)"
               style="width: 100%; aspect-ratio: 1 / 1"
             />
+            <div class="mask" style="width: 100%; aspect-ratio: 1 / 1"></div>
+          </div>
+
+          <div class="play">
+            <div
+              v-if="toggle == scope.row.id"
+              class="icon-total"
+              @click="getSongUrl(scope.row.url, scope.row.id)"
+            >
+              <svg class="icon"><use xlink:href="#icon-zanting"></use></svg>
+            </div>
+            <div
+              v-if="toggle != scope.row.id"
+              class="icon-total"
+              @click="getSongUrl(scope.row.url, scope.row.id)"
+            >
+              <svg class="icon"><use xlink:href="#icon-bofanganniu"></use></svg>
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -184,11 +202,14 @@
 </template>
 <script>
 import { mixin } from "@/mixins/index";
+import { mapGetters } from "vuex";
+import "@/assets/js/iconfont.js";
 import { songOfSingerId, updateSongMsg, delSong } from "@/api/index";
 export default {
   mixins: [mixin],
   data() {
     return {
+      songId: "", //歌曲id
       singerId: "", //歌手id
       singerName: "", //歌手名
       centerDialogVisible: false, //添加弹窗是否显示
@@ -215,6 +236,7 @@ export default {
       currentPage: 1, //当前页
       idx: -1, //当前选择项目
       multipleSelection: [], //哪些项已经打勾了
+      toggle: false, //播放器显示图标的状态
     };
   },
   watch: {
@@ -240,6 +262,9 @@ export default {
         this.currentPage * this.pageSize
       );
     },
+    ...mapGetters([
+      "isPlay", //getters里的？
+    ]),
   },
   created() {
     this.singerId = this.$route.query.id;
@@ -392,10 +417,22 @@ export default {
         });
       }
     },
+    //切换播放歌曲
+    getSongUrl(url, id) {
+      this.toggle = id;
+      this.$store.commit("setUrl", this.$store.state.HOST + url);
+      if (this.isPlay) {
+        this.$store.commit("setisPlay", false);
+        this.toggle = " id";
+      } else {
+        this.$store.commit("setisPlay", true);
+        this.toggle = id;
+      }
+    },
   },
 };
 </script>
-<style lang="less" scoped>
+<style scoped>
 .table {
   min-width: 800px;
 }
@@ -405,9 +442,6 @@ export default {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
-}
-
-.handle-box {
 }
 
 .song-img {
@@ -430,5 +464,34 @@ export default {
 
 .crumbs {
   margin-bottom: 20px;
+}
+.play {
+  position: absolute;
+  z-index: 100;
+  width: 87px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  top: 15px;
+  left: 11px;
+  overflow: hidden;
+}
+.play:hover {
+  background-color: rgba(71, 71, 71, 0.4);
+  border-radius: 5px;
+}
+
+.icon-total {
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.icon {
+  width: 2em;
+  height: 2em;
+  color: rgb(254, 254, 255);
+  fill: currentColor;
+  overflow: hidden;
 }
 </style>

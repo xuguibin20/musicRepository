@@ -66,7 +66,8 @@ public class SongController {
             //没有存储权限或磁盘满了，如果更新异常，不该更新数据库
             Song song = new Song();
             song.setSingerId(Integer.parseInt(singerId));
-            song.setName(name);
+
+            song.setName(name);//////////////////////////////////////
             song.setIntroduction(introduction);
             song.setPic(pic);
             song.setLyric(lyric);

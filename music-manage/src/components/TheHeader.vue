@@ -87,7 +87,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style lang="less" scoped>
 .header {
   position: relative;
   background-color: #253041;

@@ -1,0 +1,39 @@
+@keyframes translate {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  25% {
+    transform: translateY(-315px);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.9;
+  }
+
+  75% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+}
+
+.div1-enter {
+
+  transform: translateY(0);
+}
+
+.div1-enter-active {
+  animation:translate 1s ease-out;
+}
+
+.div1-enter-to {
+
+  transform: translateY(0);
+}

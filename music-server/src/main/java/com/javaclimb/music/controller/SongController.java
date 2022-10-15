@@ -119,6 +119,24 @@ public class SongController {
     }
 
     /**
+     * 根据歌曲id查询歌曲
+     */
+    @RequestMapping(value = "/songOfSongId", method = RequestMethod.GET)
+    public Object songOfSongId(HttpServletRequest request) {
+        String songId = request.getParameter("songId").trim();
+        return songService.selectByPrimaryKey(Integer.parseInt(songId));
+
+    }
+
+    /**
+     * 根据歌曲id查询歌曲(精确)
+     */
+    @RequestMapping(value = "/songOfSongName", method = RequestMethod.GET)
+    public Object   songOfSongName(HttpServletRequest request) {
+        String songName = request.getParameter("songName").trim();
+        return songService.songOfName(songName);
+    }
+    /**
      * 编辑歌曲信息
      */
     @RequestMapping(value = "/updateSongMsg", method = RequestMethod.POST)

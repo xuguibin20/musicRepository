@@ -100,7 +100,6 @@ public class SingerController {
         Singer singer = new Singer();
         singer.setName(name);
         singer.setId(Integer.parseInt(id));
-
         singer.setSex(new Byte(sex));
         singer.setBirth(new java.sql.Date (birthDate.getTime()));
         singer.setLocation(location);

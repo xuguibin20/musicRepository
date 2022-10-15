@@ -24,9 +24,14 @@ public class FileConfig  implements WebMvcConfigurer {
         registry.addResourceHandler("/img/songListPic/**").addResourceLocations(
                 "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"img"+System.getProperty("file.separator")+"songListPic"+System.getProperty("file.separator")
         );
+        //前端用户图片地址的定位
+        registry.addResourceHandler("/img/consumerAvator/**").addResourceLocations(
+                "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"img"+System.getProperty("file.separator")+"consumerAvator"+System.getProperty("file.separator")
+        );
         //歌曲地址的定位
         registry.addResourceHandler("/song/**").addResourceLocations(
                 "file:"+System.getProperty("user.dir")+System.getProperty("file.separator")+"song"+System.getProperty("file.separator")
         );
+
     }
 }

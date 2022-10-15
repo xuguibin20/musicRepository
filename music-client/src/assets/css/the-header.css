@@ -13,7 +13,7 @@
 /*搜索*/
 .header-search { display: flex;  justify-content: flex-start; align-items: stretch; flex-direction: row; flex-wrap: nowrap; border-radius: 5px; overflow: hidden; margin-top:17px;}
 
-.header-search input { height: 35px; width: 270px; font-size: 14px; border: 0; text-indent: 10px; background-color: #ebeef0; }
+.header-search input { height: 35px; width: 400px; font-size: 14px; border: 0; text-indent: 10px; background-color: #ebeef0; }
 
 .header-search input:focus { outline: none; }
 

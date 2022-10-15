@@ -9,8 +9,11 @@ import '@/assets/js/iconfont.js'
 import '@/assets/js/iconfont1.js'
 import '@/assets/js/iconfont2.js'
 import '@/assets/js/iconfont3.js'
+import animate from "animate.css";
+
 Vue.config.productionTip = false
 Vue.use(Element, { size: 'small', zIndex: 3000 });
+Vue.use(animate);
 
 new Vue({
   router,

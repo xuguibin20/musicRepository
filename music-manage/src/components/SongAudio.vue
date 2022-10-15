@@ -4,7 +4,7 @@
       autoplay
       muted
       id="player"
-      :src="url"
+      :src="url1"
       controls="controls"
       preload="true"
       @canplay="startPlay"
@@ -19,13 +19,16 @@ export default {
   name: "SongAudio",
   data() {
     return {
-      url: "http://localhost:8888/song/1665332297863米津玄師、DAOKO - 打上花火.mp3",
+      url1: "",
     };
   },
   watch: {
     //监听播放还是暂停
     isPlay() {
       this.togglePlay();
+    },
+    url() {
+      this.url1 = this.$store.state.url;
     },
   },
   computed: {
@@ -40,6 +43,7 @@ export default {
     startPlay() {
       let player = document.querySelector("#player");
       //开始播放
+
       player.play();
     },
     //播放完成之后触发

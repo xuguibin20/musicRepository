@@ -12,12 +12,14 @@
 import Swiper from "@/components/Swiper.vue";
 import ContentList from "@/components/ContentList.vue";
 import { getAllSinger, getAllSongList } from "@/assets/api/index.js";
+
 export default {
   name: "Home",
   created() {
     this.getSinger();
     this.getSongList();
   },
+
   data() {
     return {
       songList: [

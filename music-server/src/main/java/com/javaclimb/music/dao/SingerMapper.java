@@ -13,15 +13,15 @@ import java.util.List;
 public interface SingerMapper {
     /**
      * 增加
-     * @param Singer
+     * @param singer
      */
-    public int insert(Singer Singer);
+    public int insert(Singer singer);
 
     /**
      * 修改
-     * @param Singer
+     * @param singer
      */
-    public int update(Singer Singer);
+    public int update(Singer singer);
 
     /**
      *删除

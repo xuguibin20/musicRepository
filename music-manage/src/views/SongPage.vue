@@ -94,6 +94,7 @@
             :action="uploadSongUrl(scope.row.id)"
             :before-upload="beforeSongUpload"
             :on-success="handleSongSuccess"
+            :show-file-list="true"
           >
             <el-button size="mini">更新歌曲</el-button>
           </el-upload>
@@ -271,6 +272,9 @@ export default {
     this.singerName = this.$route.query.name;
     this.getData();
   },
+  destroyed() {
+    this.$store.commit("setisPlay", false);
+  },
   methods: {
     //获取当前页
     handleCurrentChange(val) {
@@ -391,10 +395,11 @@ export default {
     },
     //更新歌曲之前的检验
     beforeSongUpload(file) {
+      let _this = this;
       var testMsg = file.name.substring(file.name.lastIndexOf(".") + 1);
       if (testMsg != "mp3") {
-        this.$message({
-          meassage: "上传文件只能是mp3格式",
+        _this.$notify({
+          title: "上传文件只能是mp3格式",
           type: "error",
         });
         return false;
@@ -406,6 +411,9 @@ export default {
       let _this = this;
       if (res.code == 1) {
         _this.getData();
+        window.setTimeout(function () {
+          window.location.reload();
+        });
         _this.$notify({
           title: "更新成功",
           type: "success",
@@ -420,7 +428,7 @@ export default {
     //切换播放歌曲
     getSongUrl(url, id) {
       this.toggle = id;
-      this.$store.commit("setUrl", this.$store.state.HOST + url);
+      this.$store.commit("setUrl", this.$store.state.HOST + "/" + url);
       if (this.isPlay) {
         this.$store.commit("setisPlay", false);
         this.toggle = " id";

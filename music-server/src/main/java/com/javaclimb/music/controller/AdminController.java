@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 管理员Controller
+ */
 @RestController
 public class AdminController {
     @Autowired

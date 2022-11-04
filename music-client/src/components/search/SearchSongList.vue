@@ -1,5 +1,9 @@
 <template>
-  <div>歌单</div>
+  <div>
+    歌单
+
+    <PlayBar></PlayBar>
+  </div>
 </template>
 <script>
 export default {

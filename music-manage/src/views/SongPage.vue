@@ -254,8 +254,19 @@ export default {
         }
       }
     },
+    isPlay() {
+      if (this.isPlay) {
+        this.$store.commit("setplayButtonUrl", "#icon-zanting");
+      } else {
+        this.$store.commit("setplayButtonUrl", "#icon-bofang");
+      }
+    },
   },
   computed: {
+    ...mapGetters([
+      "isPlay", //getters里的
+      "id",
+    ]),
     //计算当前搜索结果表里的数据
     data() {
       return this.tableData.slice(
@@ -263,9 +274,6 @@ export default {
         this.currentPage * this.pageSize
       );
     },
-    ...mapGetters([
-      "isPlay", //getters里的？
-    ]),
   },
   created() {
     this.singerId = this.$route.query.id;
@@ -427,15 +435,21 @@ export default {
     },
     //切换播放歌曲
     getSongUrl(url, id) {
-      this.toggle = id;
       this.$store.commit("setUrl", this.$store.state.HOST + "/" + url);
-      if (this.isPlay) {
-        this.$store.commit("setisPlay", false);
-        this.toggle = " id";
+      if (id == this.$store.state.id) {
+        if (this.isPlay) {
+          this.$store.commit("setisPlay", false);
+          this.toggle = " id";
+        } else {
+          this.$store.commit("setisPlay", true);
+          this.toggle = id;
+        }
       } else {
+        this.$store.commit("setId", id);
         this.$store.commit("setisPlay", true);
         this.toggle = id;
       }
+      // this.$store.commit("setId", id);
     },
   },
 };

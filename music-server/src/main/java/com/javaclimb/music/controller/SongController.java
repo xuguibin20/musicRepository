@@ -90,23 +90,7 @@ public class SongController {
         }
     }
 
-    /**
-     * 根据歌名精确查询
-     */
-    @RequestMapping(value = "/songOfName", method = RequestMethod.GET)
-    public Object songOfName(HttpServletRequest request) {
-        String songName = request.getParameter("songName");
-        return songService.songOfName(songName);
-    }
 
-    /**
-     * 根据歌名模糊查询歌曲
-     */
-    @RequestMapping(value = "/likeSongOfName", method = RequestMethod.GET)
-    public Object likeSongOfName(HttpServletRequest request) {
-        String songName = request.getParameter("songName");
-        return songService.likeSongOfName(songName);
-    }
 
     /**
      * 根据歌手id查询歌曲
@@ -128,14 +112,25 @@ public class SongController {
 
     }
 
+
     /**
-     * 根据歌曲id查询歌曲(精确)
+     * 根据歌名精确查询
      */
-    @RequestMapping(value = "/songOfSongName", method = RequestMethod.GET)
-    public Object   songOfSongName(HttpServletRequest request) {
-        String songName = request.getParameter("songName").trim();
+    @RequestMapping(value = "/songOfName", method = RequestMethod.GET)
+    public Object songOfName(HttpServletRequest request) {
+        String songName = request.getParameter("songName").trim();;
         return songService.songOfName(songName);
     }
+
+    /**
+     * 根据歌名模糊查询歌曲
+     */
+    @RequestMapping(value = "/likeSongOfName", method = RequestMethod.GET)
+    public Object likeSongOfName(HttpServletRequest request) {
+        String songName = request.getParameter("songName");
+        return songService.likeSongOfName(songName);
+    }
+
     /**
      * 编辑歌曲信息
      */

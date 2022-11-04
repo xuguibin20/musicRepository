@@ -4,11 +4,20 @@
 .header-logo { margin: 0 10px; font-size: 26px; font-weight: bold; white-space: nowrap; cursor: pointer; }
 
 .header-logo .icon { width: 46.66667px; height: 46.66667px; font-size: 46.66667px; color: #000000; fill: currentColor; overflow: hidden; position: relative; vertical-align: middle; }
-
+.right-position {
+  margin-left: 550px;
+}
 /*nav*/
 .navbar { height: 70px; white-space: nowrap;text-align: center;}
 
-.navbar li { list-style: none;margin: 0 10px; padding: 0 10px; font-size: 18px; color: #67757f; text-align: center; border-bottom: none; box-sizing: border-box; cursor: pointer; float: left;}
+.navbar li { list-style: none;margin: 0 10px; padding: 0 10px; font-size: 18px; color: #67757f; text-align: center; border-bottom: none; box-sizing: border-box; cursor: pointer;display: inline-block;}
+
+.navbar1 li:hover {
+  color: black;
+  border-radius: 5px;
+  background-color: rgb(224, 224, 224);
+}
+
 
 /*搜索*/
 .header-search { display: flex;  justify-content: flex-start; align-items: stretch; flex-direction: row; flex-wrap: nowrap; border-radius: 5px; overflow: hidden; margin-top:17px;}

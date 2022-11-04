@@ -1,3 +1,13 @@
-#app { background-color: #ffffff; display: flex; justify-content: flex-start; align-items: stretch; flex-direction: column; flex-wrap: nowrap; }
+// #app { background-color: #ffffff; display: flex; justify-content: flex-start; align-items: stretch; flex-direction: column; flex-wrap: nowrap; }
 
-.music-content { opacity:1}
+// .music-content { opacity:1}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  opacity: 1;
+  height: 100vh;
+}

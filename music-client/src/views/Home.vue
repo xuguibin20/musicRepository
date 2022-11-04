@@ -1,10 +1,14 @@
 <template>
   <div class="home">
+    <TheHeader></TheHeader>
     <Swiper></Swiper>
     <div class="section" v-for="(item, index) in songList" :key="index">
       <div class="section-title">{{ item.name }}</div>
       <ContentList :contentList="item.list"></ContentList>
     </div>
+    <ScrollTop></ScrollTop>
+    <PlayBar></PlayBar>
+    <TheFooter></TheFooter>
   </div>
 </template>
 

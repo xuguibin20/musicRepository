@@ -1,39 +1,59 @@
-@keyframes translate {
+@keyframes move {
   0% {
     transform: translateY(0);
-    opacity: 1;
   }
-
+  20% {
+    transform: translateY(-315px);
+  }
   25% {
     transform: translateY(-315px);
-    opacity: 0;
   }
-
+  45% {
+    transform: translateY(-630px);
+  }
   50% {
-    transform: translateY(-20px);
-    opacity: 0.9;
+    transform: translateY(-630px);
   }
-
+  70% {
+    transform: translateY(-945px);
+  }
   75% {
-    transform: translateY(0);
-    opacity: 1;
+    transform: translateY(-945px);
   }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  95% {
+    transform: translateY(-1275px);
+  }
+  100% {
+    transform: translateY(-1275px);
+  }
 }
 
-.div1-enter {
-
-  transform: translateY(0);
+.move1 {
+  animation: move 32s ease-in-out 3s normal;
+  animation-iteration-count: infinite;
 }
 
-.div1-enter-active {
-  animation:translate 1s ease-out;
+.move2 {
+  animation: move 32s ease-in-out 4s normal;
+  animation-iteration-count: infinite;
 }
-
-.div1-enter-to {
-
-  transform: translateY(0);
+.move3 {
+  animation: move 32s ease-in-out 4.2s normal;
+  animation-iteration-count: infinite;
+}
+.move4 {
+  animation: move 32s ease-in-out 4.4s normal;
+  animation-iteration-count: infinite;
+}
+.move5 {
+  animation: move 32s ease-in-out 4.7s normal;
+  animation-iteration-count: infinite;
+}
+.move6 {
+  animation: move 32s ease-in-out 5s normal;
+  animation-iteration-count: infinite;
+}
+.move7 {
+  animation: move 32s ease-in-out 5.4s normal;
+  animation-iteration-count: infinite;
 }

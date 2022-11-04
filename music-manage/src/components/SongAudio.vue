@@ -1,12 +1,10 @@
 <template>
   <div class="song-audio">
     <audio
-      autoplay
       muted
       id="player"
-      :src="url1"
+      :src="url"
       controls="controls"
-      preload="true"
       @canplay="startPlay"
       @ended="ended"
     ></audio>
@@ -18,17 +16,12 @@ import { mapGetters } from "vuex"; //可以监控store里的值
 export default {
   name: "SongAudio",
   data() {
-    return {
-      url1: "",
-    };
+    return {};
   },
   watch: {
     //监听播放还是暂停
     isPlay() {
       this.togglePlay();
-    },
-    url() {
-      this.url1 = this.$store.state.url;
     },
   },
   computed: {
@@ -43,12 +36,13 @@ export default {
     startPlay() {
       let player = document.querySelector("#player");
       //开始播放
-
-      player.play();
+      if (this.isPlay) {
+        player.play();
+      }
     },
     //播放完成之后触发
     ended() {
-      this.isPlay = false; //mapGetters里的'isPlay'
+      this.$store.commit("setisPlay", false); //store里的'isPlay'
     },
     //开始，暂停
     togglePlay() {
@@ -63,4 +57,5 @@ export default {
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+</style>

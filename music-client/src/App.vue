@@ -1,31 +1,20 @@
 <template>
   <div id="app">
-    <!-- <TheHeader></TheHeader> -->
     <router-view />
-    <!-- <ScrollTop></ScrollTop> -->
-    <!-- <TheFooter></TheFooter> -->
+    <SongAudio></SongAudio>
   </div>
 </template>
 
 <script>
-import TheHeader from "@/components/TheHeader.vue";
-import ScrollTop from "@/components/ScrollTop.vue";
-import TheFooter from "@/components/TheFooter.vue";
+import SongAudio from "@/components/SongAudio.vue";
 export default {
   name: "App",
-  components: { TheHeader, ScrollTop, TheFooter },
+  components: {
+    SongAudio,
+  },
 };
 </script>
 
 <style lang="less" scoped>
-// @import "@/assets/css/app.css";
-* {
-  margin: 0;
-  padding: 0;
-}
-
-#app {
-  opacity: 1;
-  height: 100vh;
-}
+@import "@/assets/css/app.css";
 </style>

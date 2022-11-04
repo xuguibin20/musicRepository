@@ -6,13 +6,8 @@
       </svg>
       <span>music</span>
     </div>
-    <ul class="navbar">
-      <li
-        class="changeColor"
-        v-for="item in navMsg"
-        :key="item.path"
-        @click="goPage(item.path, item.name)"
-      >
+    <ul class="navbar navbar1">
+      <li v-for="item in navMsg" :key="item.path" @click="goPage(item.path)">
         {{ item.name }}
       </li>
     </ul>
@@ -33,13 +28,8 @@
         </div>
       </li>
     </ul>
-    <ul class="navbar right-position">
-      <li
-        class="changeColor"
-        v-for="item in User"
-        :key="item.path"
-        @click="goPage(item.path, item.name)"
-      >
+    <ul class="navbar navbar1 right-position">
+      <li v-for="item in User" :key="item.path" @click="goPage(item.path)">
         {{ item.name }}
       </li>
     </ul>
@@ -48,7 +38,6 @@
 
 <script>
 import { navMsg, User } from "@/assets/data/header.js";
-import { mapGetters } from "vuex";
 export default {
   name: "TheHeader",
   data() {
@@ -62,17 +51,11 @@ export default {
     this.navMsg = navMsg;
     this.User = User;
   },
-  computed: {
-    ...mapGetters([
-      "activeName", //getters里的？   .changeColorl里加上这一句:class="{ active: item.name == activeName }"
-    ]),
-  },
   methods: {
     goHome() {
       this.$router.push("/");
     },
-    goPage(path, name) {
-      this.$store.commit("setActiveName", name);
+    goPage(path) {
       this.$router.push({ path: path });
     },
     goSearch() {
@@ -87,12 +70,4 @@ export default {
 
 <style lang="less" scoped>
 @import "@/assets/css/the-header.css";
-.changeColor:hover {
-  background-color: black;
-  color: aqua;
-}
-
-.right-position {
-  margin-left: 550px;
-}
 </style>

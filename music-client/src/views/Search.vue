@@ -1,18 +1,24 @@
 <template>
-  <div class="search">
-    <nav class="searchList-nav" ref="change">
-      <span
-        :class="{ isActive: toggle == 'Song' }"
-        @click="handleChangeView('Song')"
-        >歌曲</span
-      >
-      <span
-        :class="{ isActive: toggle == 'SongList' }"
-        @click="handleChangeView('SongList')"
-        >歌单</span
-      >
-    </nav>
-    <component :is="currentView"></component>
+  <div class="search-box">
+    <TheHeader></TheHeader>
+    <div class="search">
+      <nav class="searchList-nav" ref="change">
+        <span
+          :class="{ isActive: toggle == 'Song' }"
+          @click="handleChangeView('Song')"
+          >歌曲</span
+        >
+        <span
+          :class="{ isActive: toggle == 'SongList' }"
+          @click="handleChangeView('SongList')"
+          >歌单</span
+        >
+      </nav>
+      <component :is="currentView"></component>
+    </div>
+    <ScrollTop></ScrollTop>
+    <PlayBar></PlayBar>
+    <TheFooter></TheFooter>
   </div>
 </template>
 <script>

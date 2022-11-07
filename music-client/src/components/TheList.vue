@@ -1,40 +1,35 @@
-import { likeSongOfName } from "@/assets/api/index.js";
+<template>
+  <transition name="slide-fade">
+    <div class="the-aside" v-if="showAside">
+      <h2 class="title">播放列表</h2>
+      <ul class="menus">
+        <li
+          v-for="(item, index) in listOfSongs"
+          :key="index"
+          :class="{ 'is-play': id == item.id }"
+          @click="
+            toPlay(item.id, item.url, item.pic, index, item.name, item.lyric)
+          "
+        >
+          {{ replaceLName(item.name) }}
+        </li>
+      </ul>
+    </div>
+  </transition>
+</template>
+<script>
+import { mapGetters } from "vuex";
+export default {
+  name: "TheList",
+  computed: {
+    ...mapGetters([
+      "showAside", //是否显示歌曲列表
+      "listOfSongs", //当前歌曲列表
+      "id", //播放中的音乐id
+    ]),
+  },
 
-export const mixin = {
   methods: {
-    //提示信息
-    notify(title, type) {
-      this.$notify({
-        title: title,
-        type: type,
-      });
-    },
-    //获取图片地址
-    attachImageUrl(srcUrl) {
-      return srcUrl
-        ? this.$store.state.configure.HOST + "/" + srcUrl
-        : "@/assets/img/user.jpg";
-    },
-    //根据歌名模糊查询歌曲
-    getSong() {
-      if (!this.$route.query.keywords) {
-        this.$store.commit("setListOfSongs", []);
-        this.notify("您输入的内容为空", "warning");
-      } else {
-        likeSongOfName(this.$route.query.keywords)
-          .then((res) => {
-            if (!res.length) {
-              this.$store.commit("setListOfSongs", []);
-              this.notify("系统暂无符合条件的歌曲", "warning");
-            } else {
-              this.$store.commit("setListOfSongs", res);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    },
     //获取名字前半部分-即歌手名
     replaceFName(str) {
       let arr = str.split("-");
@@ -52,6 +47,7 @@ export const mixin = {
         this.$store.state.configure.HOST + "/" + url
       );
       this.$store.commit("setId", id);
+      this.$store.commit("setLyric", this.parseLyric(lyric));
       this.$store.commit("setisPlay", true);
       this.$store.commit(
         "setSongPic",
@@ -60,7 +56,6 @@ export const mixin = {
       this.$store.commit("setListIndex", index);
       this.$store.commit("setSongName", this.replaceLName(name));
       this.$store.commit("setSingerName", this.replaceFName(name));
-      this.$store.commit("setLyric", this.parseLyric(lyric));
     },
     //解析歌词
     parseLyric(text) {
@@ -97,3 +92,7 @@ export const mixin = {
     },
   },
 };
+</script>
+<style lang="less" scoped>
+@import "@/assets/css/the-aside.css";
+</style>

@@ -17,6 +17,7 @@
       <component :is="currentView"></component>
     </div>
     <ScrollTop></ScrollTop>
+    <TheList></TheList>
     <PlayBar></PlayBar>
     <TheFooter></TheFooter>
   </div>

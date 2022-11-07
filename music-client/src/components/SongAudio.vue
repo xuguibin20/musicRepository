@@ -4,6 +4,7 @@
       ref="player"
       :src="url"
       controls="controls"
+      preload="true"
       @canplay="startPlay"
       @ended="ended"
       @timeupdate="timeupdate"
@@ -81,4 +82,7 @@ export default {
 </script>
 
 <style lang="less">
+.song-audio {
+  display: none;
+}
 </style>

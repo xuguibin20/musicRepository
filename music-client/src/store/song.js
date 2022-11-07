@@ -3,7 +3,7 @@ const song = {
     isPlay: false, //是否播放中
     url: "", //歌曲地址
     id: "", //歌曲id
-    listOfSongs: [], //当前歌曲列表
+
     playButtonUrl: "#icon-bofang", //播放状态的图标
     duration: 0, //音乐的时长
     curTime: 0, //当前歌曲播放的时间
@@ -14,8 +14,9 @@ const song = {
     autoNext: true, //当前歌曲播放完毕自动播放下一首
     lyric: [], //歌词
     tempList: {}, //单个歌单信息
-    listIndex: null, //当前歌曲在歌单中的位置
-    volume: 50, //音量
+    listOfSongs: [], //当前歌曲列表
+    listIndex: "", //当前歌曲在歌单中的位置
+    volume: 0, //音量
   },
   getters: {
     volume: (state) => {
@@ -25,15 +26,7 @@ const song = {
       }
       return volume;
     },
-    listIndex: (state) => {
-      let listIndex = state.listIndex;
-      if (!listIndex.length) {
-        listIndex = JSON.parse(
-          window.sessionStorage.getItem("listIndex") || null
-        );
-      }
-      return listIndex;
-    },
+    listIndex: (state) => state.listIndex,
     tempList: (state) => {
       let tempList = state.tempList;
       if (!tempList.length) {

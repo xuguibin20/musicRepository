@@ -30,7 +30,7 @@ public interface ConsumerMapper {
     public int delete(Integer id);
 
     /**
-     *根据主键查询所有对象
+     *根据主键查询对象
      * @param id
      */
     public Consumer selectByPrimaryKey(Integer id);
@@ -47,9 +47,20 @@ public interface ConsumerMapper {
     public List<Consumer> consumerOflikeName(String username);
 
     /**
-     * 验证密码
+     * 检查注册的账号是否存在
      *  @param username
-     *   @param password
      */
-    public int verifyPassword(String username,String password);
+    public int verifyUsername(String username);
+
+    /**
+     * 检查账号是否登录成功
+     *  @param username
+     */
+    public int vertifyUser(String username,String password);
+
+    /**
+     * 根据用户名精确查询对象
+     *  @param username
+     */
+    public Consumer selectByUsername(String username);
 }

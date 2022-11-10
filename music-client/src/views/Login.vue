@@ -7,9 +7,7 @@
         </div>
       </transition>
       <div class="nav1-right fade1">
-        <el-button type="primary" round @click="dialogFormVisible = true"
-          >登录/注册</el-button
-        >
+        <el-button type="primary" round @click="emerge">登录/注册</el-button>
       </div>
     </div>
     <div class="wrapper">
@@ -144,102 +142,7 @@
         </div>
       </div>
     </div>
-    <el-dialog width="600px" center :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <div class="dialogBtn">
-          <el-form-item style="display: inline-block">
-            <el-button
-              type="primary"
-              style="width: 100px; margin: 0 10px"
-              plain
-              @click="login"
-              >登录</el-button
-            >
-          </el-form-item>
-          <el-form-item style="display: inline-block">
-            <el-button
-              type="primary"
-              style="width: 100px; margin: 0 10px"
-              plain
-              @click="register"
-              >注册</el-button
-            >
-          </el-form-item>
-        </div>
-
-        <el-form-item>
-          <el-input
-            v-model="form.username"
-            style="width: 350px; margin-left: 20%"
-            placeholder="账号"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input
-            v-model="form.password"
-            style="width: 350px; margin-left: 20%"
-            placeholder="密码"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button
-          style="width: 350px; height: 40px"
-          round
-          type="primary"
-          @click="loginSuccess"
-          >登录</el-button
-        >
-      </div>
-    </el-dialog>
-    <el-dialog width="600px" center :visible.sync="dialogregisterFormVisible">
-      <el-form :model="registerform">
-        <div class="dialogBtn">
-          <el-form-item style="display: inline-block">
-            <el-button
-              type="primary"
-              style="width: 100px; margin: 0 10px"
-              plain
-              @click="login"
-              >登录</el-button
-            >
-          </el-form-item>
-          <el-form-item style="display: inline-block">
-            <el-button
-              type="primary"
-              style="width: 100px; margin: 0 10px"
-              plain
-              @click="register"
-              >注册</el-button
-            >
-          </el-form-item>
-        </div>
-
-        <el-form-item>
-          <el-input
-            v-model="registerform.username"
-            style="width: 350px; margin-left: 20%"
-            placeholder="账号"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input
-            v-model="registerform.password"
-            style="width: 350px; margin-left: 20%"
-            placeholder="密码"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button
-          style="width: 350px; height: 40px"
-          round
-          type="primary"
-          @click="registerSuccess"
-          >注册</el-button
-        >
-      </div>
-    </el-dialog>
+    <User></User>
     <el-dialog width="450px" center :visible.sync="dialogVisible">
       <el-form>
         <el-form-item>
@@ -256,24 +159,20 @@
 </template>
 
 <script>
-import { setConsumer } from "@/assets/api/index";
+import { mapGetters } from "vuex";
 import { mixin } from "@/mixins/index";
 export default {
   name: "Login",
   mixins: [mixin],
+
+  computed: {
+    ...mapGetters(["dialogFormVisible"]),
+  },
+
   data() {
     return {
-      dialogFormVisible: false,
-      dialogregisterFormVisible: false,
       dialogVisible: false,
-      form: {
-        username: "",
-        password: "",
-      },
-      registerform: {
-        username: "",
-        password: "",
-      },
+
       keywords: "", //搜索关键词
     };
   },
@@ -285,38 +184,9 @@ export default {
         query: { keywords: this.keywords },
       });
     },
-    login() {
-      this.dialogFormVisible = true;
-      this.dialogregisterFormVisible = false;
-      this.registerform = {};
-    },
-    register() {
-      this.dialogFormVisible = false;
-      this.dialogregisterFormVisible = true;
-      this.form = {};
-    },
-    loginSuccess() {
-      let params = new URLSearchParams();
-      params.append("username", this.registerform.username);
-      params.append("password", this.registerform.password);
-      setConsumer(params)
-        .then((res) => {
-          if (res.code == 1) {
-            this.registerform = {};
-            this.notify("添加成功", "success");
-            this.$router.push("/Home");
-          } else {
-            this.notify("添加失败", "error");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      this.dialogFormVisible = false;
-      // this.$notify.message("登录成功", "success");
-    },
-    registerSuccess() {
-      this.dialogregisterFormVisible = false;
+    //登录注册框出现
+    emerge() {
+      this.$store.commit("setdialogFormVisible", true);
     },
   },
 };

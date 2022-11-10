@@ -11,83 +11,97 @@
       </svg>
     </div>
     <div class="kongjian">
-      <!-- 上一首 -->
-      <div class="item" @click="prev">
-        <svg class="icon">
-          <use xlink:href="#icon-ziyuanldpi"></use>
-        </svg>
+      <div class="progress-box">
+        <div ref="progress" class="progress" @mousemove="mousemove">
+          <!-- 进度条 -->
+          <div ref="bg" class="bg" @click="updatemove">
+            <div
+              ref="curProgress"
+              class="cur-progress"
+              :style="{ width: curLength + '%' }"
+            ></div>
+            <!-- 拖动点 -->
+            <div
+              ref="idot"
+              class="idot"
+              :style="{ left: curLength + '%' }"
+              @mousedown="mousedown"
+            ></div>
+          </div>
+        </div>
       </div>
-      <!-- 播放按钮 -->
-      <div class="item" @click="togglePlay">
-        <svg class="icon">
-          <use :xlink:href="playButtonUrl"></use>
-        </svg>
-      </div>
-      <!-- 下一首 -->
-      <div class="item" @click="next">
-        <svg class="icon">
-          <use xlink:href="#icon-ziyuanldpi1"></use>
-        </svg>
-      </div>
-      <!-- 歌曲图片 -->
-      <div class="item-img" @click="toLyric">
-        <img :src="songPic" />
-      </div>
-      <!-- 播放进度 -->
-      <div class="playing-speed">
-        <!-- 播放开始时间 -->
-        <div class="current-time">{{ nowTime }}</div>
-        <!-- 播放条整体 -->
-        <div class="progress-box">
+      <div class="kongjian-box">
+        <div class="chang-music">
+          <!-- 歌曲相关信息 -->
+          <div class="item">
+            <!-- 歌曲图片 -->
+            <div class="item-img" @click="toLyric">
+              <img :src="songPic" />
+            </div>
+          </div>
           <!-- 歌曲名 -->
           <div class="item-song-title">
             <div>{{ this.songName }}</div>
             <div>{{ this.singerName }}</div>
           </div>
-          <div ref="progress" class="progress" @mousemove="mousemove">
-            <!-- 进度条 -->
-            <div ref="bg" class="bg" @click="updatemove">
-              <div
-                ref="curProgress"
-                class="cur-progress"
-                :style="{ width: curLength + '%' }"
-              ></div>
-              <!-- 拖动点 -->
-              <div
-                ref="idot"
-                class="idot"
-                :style="{ left: curLength + '%' }"
-                @mousedown="mousedown"
-              ></div>
-            </div>
+          <!-- 上一首 -->
+          <div class="item" @click="prev">
+            <svg class="icon">
+              <use xlink:href="#icon-ziyuanldpi"></use>
+            </svg>
+          </div>
+          <!-- 播放按钮 -->
+          <div class="item" @click="togglePlay">
+            <svg class="icon">
+              <use :xlink:href="playButtonUrl"></use>
+            </svg>
+          </div>
+          <!-- 下一首 -->
+          <div class="item" @click="next">
+            <svg class="icon">
+              <use xlink:href="#icon-ziyuanldpi1"></use>
+            </svg>
           </div>
         </div>
-        <!-- 播放结束时间 -->
-        <div class="current-time">{{ songTime }}</div>
-        <!-- 音量 -->
-        <div class="item item-volume">
-          <svg class="icon">
-            <use xlink:href="#icon-yinliang1"></use>
-          </svg>
-          <el-slider class="volume" v-model="num" :vertical="true"></el-slider>
-        </div>
-        <!-- 收藏 -->
-        <div class="item">
-          <svg class="icon">
-            <use xlink:href="#icon-xihuan-shi"></use>
-          </svg>
-        </div>
-        <!-- 下载 -->
-        <div class="item" @click="">
-          <svg class="icon">
-            <use xlink:href="#icon-xiazai"></use>
-          </svg>
-        </div>
-        <!-- 当前播放的歌曲列表 -->
-        <div class="item" @click="changeAside">
-          <svg class="icon">
-            <use xlink:href="#icon-liebiao"></use>
-          </svg>
+        <!-- 播放进度 -->
+        <div class="playing-speed">
+          <div class="time">
+            <!-- 播放开始时间 -->
+            <div class="current-time">{{ nowTime }}/</div>
+
+            <!-- 播放结束时间 -->
+            <div class="current-time">{{ songTime }}</div>
+          </div>
+
+          <!-- 音量 -->
+          <div class="item item-volume">
+            <svg class="icon">
+              <use xlink:href="#icon-yinliang1"></use>
+            </svg>
+            <el-slider
+              class="volume"
+              v-model="num"
+              :vertical="true"
+            ></el-slider>
+          </div>
+          <!-- 收藏 -->
+          <div class="item">
+            <svg class="icon">
+              <use xlink:href="#icon-xihuan-shi"></use>
+            </svg>
+          </div>
+          <!-- 下载 -->
+          <div class="item" @click="">
+            <svg class="icon">
+              <use xlink:href="#icon-xiazai"></use>
+            </svg>
+          </div>
+          <!-- 当前播放的歌曲列表 -->
+          <div class="item" @click="changeAside">
+            <svg class="icon">
+              <use xlink:href="#icon-liebiao"></use>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -169,14 +183,14 @@ export default {
       false
     );
     //点击页面空白处，音量条消失
-    document.addEventListener(
-      "click",
-      (e) => {
-        document.querySelector(".volume").classList.remove("show-volume");
-        e.stopPropagation();
-      },
-      false
-    );
+    // document.addEventListener(
+    //   "click",
+    //   (e) => {
+    //     document.querySelector(".volume").classList.remove("show-volume");
+    //     e.stopPropagation();
+    //   },
+    //   false
+    // );
   },
   methods: {
     //控制音乐的播放或暂停
@@ -233,6 +247,7 @@ export default {
     //结束拖动
     mouseup() {
       this.tag = false;
+      this.$store.commit("setisPlay", true);
     },
     //正在拖动
     mousemove(e) {
@@ -240,6 +255,7 @@ export default {
         return false;
       }
       if (this.tag) {
+        this.$store.commit("setisPlay", false);
         let movementX = e.clientX - this.mouseStartX; //移动后的位置-开始拖动的位置=移动了多少
         let curLength = this.$refs.curProgress.getBoundingClientRect().width;
 
@@ -253,9 +269,9 @@ export default {
 
         this.mouseStartX = e.clientX;
         this.changTime(newPercent);
-        if (!this.isPlay) {
-          this.$store.commit("setisPlay", true);
-        }
+        // if (!this.isPlay) {
+
+        // }
       }
     },
     //鼠标离开进度条范围
@@ -402,4 +418,26 @@ export default {
 </script>
 <style lang="less" scoped>
 @import "@/assets/css/play-bar.css";
+.kongjian-box {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  min-width: 1000px;
+  justify-content: space-between;
+}
+
+.kongjian-box .chang-music {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  bottom: 0;
+  height: 60px;
+  width: 50%;
+  min-width: 1000px;
+}
 </style>

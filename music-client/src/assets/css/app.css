@@ -11,3 +11,8 @@
   opacity: 1;
   height: 100vh;
 }
+.el-popup-parent--hidden{
+padding-right: 0px !important;
+
+overflow: auto !important;
+}

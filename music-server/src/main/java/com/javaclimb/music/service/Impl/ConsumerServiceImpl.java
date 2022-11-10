@@ -43,7 +43,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     /**
-     * 根据主键查询所有对象
+     * 根据主键查询对象
      *
      * @param id
      */
@@ -71,13 +71,30 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     /**
-     * 验证密码
+     * 检查账号是否存在
      *
      * @param username
-     * @param password
      */
     @Override
-    public Boolean verifyPassword(String username, String password) {
-        return consumerMapper.verifyPassword(username,password)>0;
+    public Boolean verifyUsername(String username) {
+        return consumerMapper.verifyUsername(username)>0;
     }
+
+    /**
+     * 检查账号是否登录成功
+     *  @param username
+     *  @param password
+     */
+    @Override
+    public Boolean vertifyUser(String username,String password){
+        return consumerMapper.vertifyUser(username,password)>0;
+    }
+
+    /**
+     * 根据用户名精确查询对象
+     *  @param username
+     */
+    public Consumer selectByUsername(String username){
+        return consumerMapper.selectByUsername(username);
+    };
 }

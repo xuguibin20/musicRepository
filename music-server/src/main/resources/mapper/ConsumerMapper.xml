@@ -94,6 +94,20 @@
 </trim>
     </insert>
 
+    <select id="verifyUsername" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+        select count(*)
+
+        from consumer
+        where username = #{username}
+    </select>
+
+    <select id="vertifyUser" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+        select count(*)
+
+        from consumer
+        where username = #{username} and    password = #{password}
+    </select>
+
     <update id="update" parameterType="com.javaclimb.music.domain.Consumer">
         update consumer
 <set>
@@ -157,10 +171,10 @@
         where username like #{username}
     </select>
 
-    <select id="verifyPassword" resultType="java.lang.Integer" parameterType="java.util.HashMap">
-    select count(*)
-
-    from consumer
-    where username = #{username} and password = #{password}
+    <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from consumer
+        where username = #{username}
     </select>
 </mapper>

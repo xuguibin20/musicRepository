@@ -44,9 +44,20 @@ public interface ConsumerService {
     public List<Consumer> consumerOflikeName(String username);
 
     /**
-     * 验证密码
+     * 检查注册的账号是否存在
      *  @param username
-     *   @param password
      */
-    public Boolean verifyPassword(String username,String password);
+    public Boolean verifyUsername(String username);
+
+    /**
+     * 检查账号是否登录成功
+     *  @param username
+     */
+    public Boolean vertifyUser(String username,String password);
+
+    /**
+     * 根据用户名精确查询对象
+     *  @param username
+     */
+    public Consumer selectByUsername(String username);
 }

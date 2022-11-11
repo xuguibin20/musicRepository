@@ -14,6 +14,7 @@
               type="primary"
               style="width: 100px; margin: 0 10px"
               plain
+              autofocus
               @click="login"
               >登录</el-button
             >
@@ -149,12 +150,10 @@ export default {
     login() {
       this.$store.commit("setdialogFormVisible", true);
       this.dialogregisterFormVisible = false;
-      this.registerform = {};
     },
     register() {
       this.$store.commit("setdialogFormVisible", false);
       this.dialogregisterFormVisible = true;
-      this.form = {};
     },
     loginSuccess() {
       let _this = this;
@@ -168,20 +167,27 @@ export default {
               title: "登录成功",
               type: "success",
             });
-
+            this.$store.commit("setdialogFormVisible", false);
+            this.$store.commit("setLogin", true);
             setTimeout(() => {
-              this.$store.commit("setdialogFormVisible", false);
-              _this.$router.push({ path: "/Home" });
+              this.$store.commit("setuserId", res.userMsg.id);
+              this.$store.commit("setuserName", res.userMsg.username);
+              this.$store.commit("setAvator", res.userMsg.avator);
+              this.$router.go(0); //刷新页面
+              // _this.$router.push({ path: "/Home" });
             }, 1500);
           } else {
             _this.$notify({
-              title: "登录失败",
+              title: "账号或密码错误",
               type: "error",
             });
           }
         })
         .catch((err) => {
-          console.log(err);
+          _this.$notify({
+            title: "账号或密码错误",
+            type: "error",
+          });
         });
     },
     registerSuccess() {
@@ -196,7 +202,14 @@ export default {
               title: "注册成功",
               type: "success",
             });
+            this.dialogregisterFormVisible = false;
+            this.$store.commit("setLogin", true);
             setTimeout(() => {
+              //    this.$store.commit("setuserId", res.userMsg.id);
+              // this.$store.commit("setuserName", res.userMsg.username);
+              // this.$store.commit("setAvator", res.userMsg.avator);
+              //判断当前页面是否为首页，不是则跳转，是则刷新
+              // if()
               _this.$router.push({ path: "/Home" });
             }, 1500);
           } else {
@@ -207,7 +220,10 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          _this.$notify({
+            title: "账号已存在",
+            type: "error",
+          });
         });
     },
   },

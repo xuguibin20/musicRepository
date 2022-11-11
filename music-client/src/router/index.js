@@ -7,6 +7,7 @@ import SongList from "@/views/SongList";
 import Search from "@/views/Search";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
+import Setting from "@/views/Setting";
 
 import Lyric from "@/views/Lyric";
 Vue.use(VueRouter);
@@ -23,6 +24,10 @@ const routes = [
   {
     path: "/Lyric",
     component: Lyric,
+  },
+  {
+    path: "/Setting",
+    component: Setting,
   },
 ];
 

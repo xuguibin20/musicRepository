@@ -17,13 +17,10 @@
 import Swiper from "@/components/Swiper.vue";
 import ContentList from "@/components/ContentList.vue";
 import { getAllSinger, getAllSongList } from "@/assets/api/index.js";
-import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
-   computed: {
-    ...mapGetters(["dialogFormVisible"]),
-  },
+
   created() {
     this.getSinger();
     this.getSongList();

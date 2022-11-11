@@ -268,8 +268,9 @@ public class ConsumerController {
             return jsonObject;
         }
         //检查要注册的用户名是否存在
-        boolean flag = consumerService.verifyUsername(username);
-        if(flag ){
+        Consumer consumer1 = consumerService.selectByUsername(username);
+//        boolean flag = consumerService.verifyUsername(username);鸡肋，可以删了
+        if(consumer1 != null ){
             jsonObject.put(Consts.CODE,0);
             jsonObject.put(Consts.MSG,"注册失败，用户名已存在");
             return jsonObject;
@@ -319,12 +320,14 @@ public class ConsumerController {
 
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登录成功");
-            return jsonObject;
 //            登陆成功，返回登录的对象
 //           return  consumerService.selectByUsername(username);
+            jsonObject.put("userMsg",consumerService.selectByUsername(username));
+            return jsonObject;
+
             }else{
             jsonObject.put(Consts.CODE,0);
-            jsonObject.put(Consts.MSG,"登录失败");
+            jsonObject.put(Consts.MSG,"用户或密码错误");
             return jsonObject;
             }
         }

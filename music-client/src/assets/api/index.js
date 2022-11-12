@@ -51,3 +51,12 @@ export const registerConsumer = (params) =>
   post("consumer/registerConsumer", params);
 //用户登录
 export const loginConsumer = (params) => post("consumer/loginConsumer", params);
+
+// ------------评价相关--------------
+
+//新增评价
+export const setRank = (params) => post("rank/add", params);
+
+//获取指定歌单的平均分
+export const getRankOfSongListId = (songListId) =>
+  get(`rank?songListId=${songListId}`);

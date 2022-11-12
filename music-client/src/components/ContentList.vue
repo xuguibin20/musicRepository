@@ -6,7 +6,8 @@
         v-for="(item, index) in contentList"
         :key="index"
       >
-        <div class="kuo">
+        <!-- 歌手有item.name，而歌单没有；借此来判断点击的是歌单还是歌手 -->
+        <div class="kuo" @click="goAlbum(item)">
           <img class="item-img" :src="attachImageUrl(item.pic)" />
           <div class="mask">
             <svg class="icon">
@@ -27,6 +28,19 @@ export default {
   props: ["contentList"],
   data() {
     return {};
+  },
+  methods: {
+    goAlbum(item) {
+      this.$store.commit("setTempList", item);
+      //转向歌手页面
+      if (item.name != null) {
+        this.$router.push({ path: `/SingerAlbum/${item.id}` });
+      }
+      //转向歌单页面
+      else {
+        this.$router.push({ path: `/SongListAlbum/${item.id}` });
+      }
+    },
   },
 };
 </script>

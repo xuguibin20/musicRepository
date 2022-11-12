@@ -121,7 +121,7 @@ export default {
     attachImageUrl(srcUrl) {
       return srcUrl
         ? this.$store.state.configure.HOST + "/" + srcUrl
-        : "@/assets/img/user.jpg";
+        : "@/assets/img/mn.jpg";
     },
     //登录注册框显示
     emerge() {

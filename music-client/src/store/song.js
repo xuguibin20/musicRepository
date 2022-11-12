@@ -13,7 +13,7 @@ const song = {
     songPic: "", //歌曲图片
     autoNext: true, //当前歌曲播放完毕自动播放下一首
     lyric: [], //歌词
-    tempList: {}, //单个歌单信息
+    tempList: {}, //单个歌单信息或歌手信息
     listOfSongs: [], //当前歌曲列表
     listIndex: "", //当前歌曲在歌单中的位置
     volume: 0, //音量

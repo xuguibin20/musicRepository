@@ -8,6 +8,8 @@ import Search from "@/views/Search";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
 import Setting from "@/views/Setting";
+import SingerAlbum from "@/views/SingerAlbum";
+import SongListAlbum from "@/views/SongListAlbum";
 
 import Lyric from "@/views/Lyric";
 Vue.use(VueRouter);
@@ -28,6 +30,14 @@ const routes = [
   {
     path: "/Setting",
     component: Setting,
+  },
+  {
+    path: "/SingerAlbum/:id",
+    component: SingerAlbum,
+  },
+  {
+    path: "/SongListAlbum/:id",
+    component: SongListAlbum,
   },
 ];
 

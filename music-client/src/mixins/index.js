@@ -13,7 +13,7 @@ export const mixin = {
     attachImageUrl(srcUrl) {
       return srcUrl
         ? this.$store.state.configure.HOST + "/" + srcUrl
-        : "@/assets/img/user.jpg";
+        : "@/assets/img/mn.jpg";
     },
     //根据歌名模糊查询歌曲
     getSong() {

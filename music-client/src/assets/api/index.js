@@ -60,3 +60,23 @@ export const setRank = (params) => post("rank/add", params);
 //获取指定歌单的平均分
 export const getRankOfSongListId = (songListId) =>
   get(`rank?songListId=${songListId}`);
+
+// ------------评论--------------
+
+//新增评论
+export const setComment = (params) => post("comment/add", params);
+
+//新增评价
+export const setLike = (params) => post("comment/like", params);
+
+//返回当前歌单/歌曲的评论列表
+export const getAllComment = (type, id) => {
+  if (type == 0) {
+    //歌曲
+    return get(`comment/commentOfSongId?spngId=${id}`);
+  }
+  //歌单
+  else {
+    return get(`comment/commentOfSongListId?spngListId=${id}`);
+  }
+};

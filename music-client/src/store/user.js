@@ -9,9 +9,30 @@ const user = {
   getters: {
     dialogFormVisible: (state) => state.dialogFormVisible,
 
-    userId: (state) => state.userId,
-    userName: (state) => state.userName,
-    avator: (state) => state.avator,
+    userId: (state) => {
+      let userId = state.userId;
+      if (!userId.length) {
+        userId = JSON.parse(window.sessionStorage.getItem("userId") || null);
+      }
+      return userId;
+    },
+
+    userName: (state) => {
+      let userName = state.userName;
+      if (!userName.length) {
+        userName = JSON.parse(
+          window.sessionStorage.getItem("userName") || null
+        );
+      }
+      return userName;
+    },
+    avator: (state) => {
+      let avator = state.avator;
+      if (!avator.length) {
+        avator = JSON.parse(window.sessionStorage.getItem("avator") || null);
+      }
+      return avator;
+    },
   },
   mutations: {
     setdialogFormVisible: (state, dialogFormVisible) => {

@@ -35,14 +35,15 @@ public class RankController {
         rank.setScore(Integer.parseInt(score));
         boolean flag = rankService.insert(rank);
         if (flag) {
-            jsonObject.put("code", 1);
+            jsonObject.put(Consts.CODE, 1);
             jsonObject.put(Consts.MSG, "评价成功");
-
+            return jsonObject;
+        }else{
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "评价失败");
             return jsonObject;
         }
-        jsonObject.put(Consts.CODE, 0);
-        jsonObject.put(Consts.MSG, "评价失败");
-        return jsonObject;
+
     }
 
     /**

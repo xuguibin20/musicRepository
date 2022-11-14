@@ -102,7 +102,7 @@ export default {
       });
     },
     goHome() {
-      this.$router.push("/");
+      this.$router.push("/Home");
     },
     goPage(path) {
       if (!this.Login && path == "/MyMusic") {
@@ -121,7 +121,7 @@ export default {
     attachImageUrl(srcUrl) {
       return srcUrl
         ? this.$store.state.configure.HOST + "/" + srcUrl
-        : "@/assets/img/mn.jpg";
+        : this.$store.state.configure.HOST + "/img/mn.jpg";
     },
     //登录注册框显示
     emerge() {

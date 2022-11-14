@@ -29,10 +29,10 @@ public class CommentController {
     public Object addComment(HttpServletRequest request){
         JSONObject jsonObject = new JSONObject();
         //获取前端传过来的参数
-        String userId = request.getParameter("userId").trim();//用户id
-        String type = request.getParameter("type").trim(); //评论类型（0歌曲1歌单）
-        String songId = request.getParameter("songId").trim();;//歌曲id
-        String songListId = request.getParameter("songListId").trim();   //歌单id
+        String userId = request.getParameter("userId");//用户id
+        String type = request.getParameter("type"); //评论类型（0歌曲1歌单）
+        String songId = request.getParameter("songId");;//歌曲id
+        String songListId = request.getParameter("songListId");   //歌单id
         String content = request.getParameter("content").trim();  //评论内容
 //保存到歌手的对象中
         Comment comment = new Comment();

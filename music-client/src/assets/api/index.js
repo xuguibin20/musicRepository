@@ -51,7 +51,8 @@ export const registerConsumer = (params) =>
   post("consumer/registerConsumer", params);
 //用户登录
 export const loginConsumer = (params) => post("consumer/loginConsumer", params);
-
+//根据用户id查询用户
+export const getUserOfId = (id) => get(`consumer/selectByPrimaryKey?id=${id}`);
 // ------------评价相关--------------
 
 //新增评价

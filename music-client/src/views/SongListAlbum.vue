@@ -82,11 +82,18 @@ export default {
     this.getRank(this.songListId);
   },
   methods: {
+    //提示信息
+    notify(title, type) {
+      this.$notify({
+        title: title,
+        type: type,
+      });
+    },
     //获取图片地址
     attachImageUrl(srcUrl) {
       return srcUrl
         ? this.$store.state.configure.HOST + "/" + srcUrl
-        : "@/assets/img/mn.jpg";
+        : this.$store.state.configure.HOST + "/img/mn.jpg";
     },
     //获取当前歌单的歌曲列表
     getSongId() {
@@ -131,31 +138,19 @@ export default {
         setRank(params)
           .then((res) => {
             if (res.code == 1) {
-              this.$notify({
-                title: "评分成功",
-                type: "success",
-              });
+              this.notify("评分成功", "success");
+
               this.getRank(this.songListId);
             } else {
-              this.$notify({
-                title: "评分失败",
-                type: "error",
-              });
+              this.notify("评分失败", "error");
             }
           })
           .catch((err) => {
-            this.$notify({
-              title: "您已经评价过啦！",
-              type: "error",
-            });
+            this.notify("您已经评价过啦！", "error");
           });
       } else {
         this.rank = null;
-
-        this.$notify({
-          title: "请先登录",
-          type: "warning",
-        });
+        this.notify("请先登录", "warning");
       }
     },
   },

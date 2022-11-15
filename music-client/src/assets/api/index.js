@@ -4,6 +4,9 @@ import { get, post } from "./http.js";
 
 //查询歌手
 export const getAllSinger = () => get(`singer/allSinger`);
+//根据性别
+export const getSingerOfSex = (sex) => get(`singer/singerofSex?sex=${sex}`);
+//
 
 // ------------歌曲相关--------------
 
@@ -39,7 +42,12 @@ export const getAllSongList = () => get(`songList/allSongList`);
 //根据歌单id查询歌曲列表
 export const listSongDetail = (songListId) =>
   get(`listSong/detail?songListId=${songListId}`);
-
+//根据关键字模糊查询歌单列表
+export const getSongListOfLikeTitle = (keywords) =>
+  get(`songList/likeSongListOfTitle?title=${keywords}`);
+//根据风格模糊查询歌单
+export const getSongListOfLikeStyle = (style) =>
+  get(`songList/songListofStyle?style=${style}`);
 // ------------用户相关--------------
 
 //查询用户

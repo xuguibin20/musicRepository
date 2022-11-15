@@ -7,21 +7,32 @@
       </div>
       <ul class="info">
         <li>{{ attachSex(singer.sex) }}</li>
-        <li>{{ attachBirth(singer.birth) }}</li>
+        <li>生日：{{ attachBirth(singer.birth) }}</li>
+        <li>地区:{{ singer.location }}</li>
       </ul>
+    </div>
+    <div class="alnum-content">
+      <div class="intro">
+        <h2>{{ singer.name }}</h2>
+        <span>{{ singer.introduction }}</span>
+        <div class="content">
+          <h2>歌单</h2>
+          <hr />
+          <AlbumContent :songList="listOfSongs"></AlbumContent>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import AlbumContent from "@/components/AlbumContent.vue";
-import Comment from "@/components/Comment.vue";
+
 import { mapGetters } from "vuex";
 import { songOfSingerId } from "@/assets/api/index";
 export default {
   name: "SingerAlbum",
   components: {
     AlbumContent,
-    Comment,
   },
   computed: {
     ...mapGetters([

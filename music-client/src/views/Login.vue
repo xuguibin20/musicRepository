@@ -23,6 +23,7 @@
                 <span> <img src="@/assets/img/Login/search.png" /> </span>
                 <div style="display: inline-block; width: 80%">
                   <input
+                    autofocus
                     type="text"
                     placeholder="好歌好曲等你来发现"
                     @keyup.enter="goSearch()"

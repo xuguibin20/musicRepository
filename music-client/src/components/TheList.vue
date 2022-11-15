@@ -19,6 +19,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { getCollectOfUserId } from "@/assets/api/index.js";
 export default {
   name: "TheList",
   computed: {
@@ -26,6 +27,9 @@ export default {
       "showAside", //是否显示歌曲列表
       "listOfSongs", //当前歌曲列表
       "id", //播放中的音乐id
+      "Login", //用户是否已经登录
+      "userId", //当前登录的用户id
+      "isCollect", //当前播放的歌曲是否已经收藏
     ]),
   },
 
@@ -56,6 +60,16 @@ export default {
       this.$store.commit("setListIndex", index);
       this.$store.commit("setSongName", this.replaceLName(name));
       this.$store.commit("setSingerName", this.replaceFName(name));
+      if (this.Login) {
+        getCollectOfUserId(this.userId).then((res) => {
+          for (let item of res) {
+            if (item.songId == id) {
+              this.$store.commit("setisCollect", true);
+              break;
+            }
+          }
+        });
+      }
     },
     //解析歌词
     parseLyric(text) {

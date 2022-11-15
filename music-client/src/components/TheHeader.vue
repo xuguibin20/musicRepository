@@ -131,6 +131,7 @@ export default {
     goMenuList(path) {
       if (path == 0) {
         this.$store.commit("setLogin", false);
+        this.$store.commit("setisCollect", false);
         this.$router.go(0); //刷新页面
       } else {
         this.$router.push({ path: path });

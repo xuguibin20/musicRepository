@@ -85,13 +85,13 @@
             ></el-slider>
           </div>
           <!-- 收藏 -->
-          <div class="item">
-            <svg class="icon">
+          <div class="item" @click="collection">
+            <svg :class="{ active: isCollect }" class="icon">
               <use xlink:href="#icon-xihuan-shi"></use>
             </svg>
           </div>
           <!-- 下载 -->
-          <div class="item" @click="">
+          <div class="item" @click="collection">
             <svg class="icon">
               <use xlink:href="#icon-xiazai"></use>
             </svg>
@@ -109,9 +109,11 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-
+import { setCollect, getCollectOfUserId, delCollect } from "@/assets/api/index";
+import { mixin } from "@/mixins/index.js";
 export default {
   name: "PlayBar",
+  mixins: [mixin],
   data() {
     return {
       picUrl: "",
@@ -150,6 +152,8 @@ export default {
     ...mapGetters([
       "id",
       "url",
+      "Login", //用户是否已经登录
+      "userId", //当前登录的用户id
       "songName", //歌名
       "singerName", //歌手名字
       "playButtonUrl", //播放状态的图片
@@ -163,6 +167,8 @@ export default {
       "songPic", //正在播放的音乐图片
       "showAside", //是否显示歌曲列表
       "listIndex", //当前歌曲在歌单中的位置
+
+      "isCollect", //当前播放的歌曲是否已经收藏
     ]),
   },
   mounted() {
@@ -348,6 +354,17 @@ export default {
     //播放
     toPlay(url) {
       if (url && url != this.url) {
+        this.$store.commit("setisCollect", false);
+        if (this.Login) {
+          getCollectOfUserId(this.userId).then((res) => {
+            for (let item of res) {
+              if (item.songId == this.listOfSongs[this.listIndex].id) {
+                this.$store.commit("setisCollect", true);
+                break;
+              }
+            }
+          });
+        }
         this.$store.commit(
           "setUrl",
           this.$store.state.configure.HOST + "/" + url
@@ -412,6 +429,39 @@ export default {
         return a[0] - b[0];
       });
       return result;
+    },
+    //收藏
+    collection() {
+      if (this.Login) {
+        //已收藏过
+        if (this.isCollect) {
+          delCollect(this.id).then((res) => {
+            if (res.code == 1) {
+              this.notify("取消成功", "success");
+              this.$store.commit("setisCollect", false);
+            } else {
+              this.notify("取消失败", "error");
+            }
+          });
+        } else {
+          let params = new URLSearchParams();
+          params.append("userId", this.userId);
+          params.append("type", 0);
+          params.append("songId", this.id);
+          setCollect(params).then((res) => {
+            if (res.code == 1) {
+              this.notify("收藏成功", "success");
+              this.$store.commit("setisCollect", true);
+            } else if (res.code == 2) {
+              this.notify("已收藏", "warning");
+            } else {
+              this.notify("收藏失败", "error");
+            }
+          });
+        }
+      } else {
+        this.notify("请先登录", "warning");
+      }
     },
   },
 };

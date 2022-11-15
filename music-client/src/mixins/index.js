@@ -1,6 +1,13 @@
-import { likeSongOfName } from "@/assets/api/index.js";
-
+import { likeSongOfName, getCollectOfUserId } from "@/assets/api/index.js";
+import { mapGetters } from "vuex";
 export const mixin = {
+  computed: {
+    ...mapGetters([
+      "Login", //用户是否已经登录
+      "userId", //当前登录的用户id
+      "isCollect", //当前播放的歌曲是否已经收藏
+    ]),
+  },
   methods: {
     //提示信息
     notify(title, type) {
@@ -61,6 +68,17 @@ export const mixin = {
       this.$store.commit("setSongName", this.replaceLName(name));
       this.$store.commit("setSingerName", this.replaceFName(name));
       this.$store.commit("setLyric", this.parseLyric(lyric));
+      this.$store.commit("setisCollect", false);
+      if (this.Login) {
+        getCollectOfUserId(this.userId).then((res) => {
+          for (let item of res) {
+            if (item.songId == id) {
+              this.$store.commit("setisCollect", true);
+              break;
+            }
+          }
+        });
+      }
     },
     //解析歌词
     parseLyric(text) {

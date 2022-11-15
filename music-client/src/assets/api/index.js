@@ -82,10 +82,22 @@ export const setLike = (params) => post("comment/like", params);
 export const getAllComment = (type, id) => {
   if (type == 0) {
     //歌曲
-    return get(`comment/commentOfSongId?spngId=${id}`);
+    return get(`comment/commentOfSongId?songId=${id}`);
   }
   //歌单
   else {
-    return get(`comment/commentOfSongListId?spngListId=${id}`);
+    return get(`comment/commentOfSongListId?songListId=${id}`);
   }
 };
+
+// ------------收藏--------------
+
+//新增收藏
+export const setCollect = (params) => post("collect/add", params);
+
+//删除收藏
+export const delCollect = (songId) => get(`collect/delete?songId=${songId}`);
+
+//根据用户id获取收藏过的歌曲
+export const getCollectOfUserId = (userId) =>
+  get(`collect/collectOfUserId?userId=${userId}`);

@@ -80,6 +80,10 @@ export const mixin = {
         });
       }
     },
+    //获取生日
+    attachBirth(value) {
+      return value.substr(0, 10);
+    },
     //解析歌词
     parseLyric(text) {
       let lines = text.split("\n"); // 划分歌词的每一行

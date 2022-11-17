@@ -439,6 +439,7 @@ export default {
             if (res.code == 1) {
               this.notify("取消成功", "success");
               this.$store.commit("setisCollect", false);
+              this.$router.go(0); //刷新页面
             } else {
               this.notify("取消失败", "error");
             }
@@ -452,6 +453,7 @@ export default {
             if (res.code == 1) {
               this.notify("收藏成功", "success");
               this.$store.commit("setisCollect", true);
+              this.$router.go(0); //刷新页面
             } else if (res.code == 2) {
               this.notify("已收藏", "warning");
             } else {

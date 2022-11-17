@@ -30,6 +30,8 @@
   width: 70px;
 }
 
+
+
 .nav1-right {
   height: 60px;
   float: right;
@@ -119,39 +121,44 @@ h1 {
 }
 
 .swiper1-content {
-  width: 200px;
+  width: 210px;
   height: 100%;
   margin: 0 10px 0;
+  padding: 0 5px;
 }
 
 .margin {
   box-sizing: border-box;
   border-radius: 15px;
-  width: 200px;
+  width: 210px;
   height: 4448px;
   overflow: hidden;
   margin-top: 10px;
+    
 }
 
 .slider {
-  width: 200px;
-  height: 4400px;
+  width: 210px;
+  height: 4400px;padding: 0 5px;
 
   /* transform: translateY(-948px); */
 }
 
-.slider img {
+.slider  img {
   width: 200px;
   height: 300px;
   margin-bottom: 15px;
   border-radius: 15px;
+  transition: all 0.5s ease;
 }
-.slider img:hover {
-  transform-origin: center;
-  
-    transform-box: fill-box;
-transform: scale(2,2);
+.slider  a:hover img {  
+
+  transform: scale(1.1);
+
+
 }
+
+    
 
 .shadow {
   float: left;

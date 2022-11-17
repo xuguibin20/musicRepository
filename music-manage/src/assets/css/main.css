@@ -3,6 +3,9 @@
     padding: 0;
   }
 
+  .mgb{
+    margin-bottom: 20px;
+  }
 /* .content-box {
   position: absolute;
   left: 150px;

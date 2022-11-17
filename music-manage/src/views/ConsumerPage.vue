@@ -19,6 +19,7 @@
         >
       </div>
     </div>
+    <!-- 信息展示 -->
     <el-table
       size="mini"
       border
@@ -27,7 +28,9 @@
       :data="data"
       @selection-change="handleSelectionChange"
     >
+      <!-- 选择一名或多名哦用户 -->
       <el-table-column type="selection" width="40px"></el-table-column>
+      <!-- 用户图片以及更新图片 -->
       <el-table-column label="用户图片" width="110" align="center">
         <template slot-scope="scope">
           <div class="consumer-img">
@@ -45,13 +48,16 @@
           </el-upload>
         </template>
       </el-table-column>
+      <!-- 用户名 -->
       <el-table-column prop="username" label="用户" width="120" align="center">
       </el-table-column>
+      <!-- 性别 -->
       <el-table-column label="性别" align="center" width="50">
         <template slot-scope="scope">
           {{ changeSex(scope.row.sex) }}
         </template>
       </el-table-column>
+      <!-- 手机号码 -->
       <el-table-column
         prop="phoneNum"
         label="手机号"
@@ -59,18 +65,30 @@
         align="center"
       >
       </el-table-column>
+      <!-- 电子邮箱 -->
       <el-table-column prop="email" label="电子邮箱" width="240" align="center">
       </el-table-column>
+      <!-- 生日 -->
       <el-table-column label="生日" width="120" align="center">
         <template slot-scope="scope">
           {{ attachBirth(scope.row.birth) }}
         </template>
       </el-table-column>
+      <!-- 签名 -->
       <el-table-column prop="introduction" label="签名" align="center">
       </el-table-column>
+      <!-- 地区 -->
       <el-table-column prop="location" label="地区" width="100" align="center">
       </el-table-column>
-
+      <!-- 收藏 -->
+      <el-table-column label="收藏" width="80" align="center">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="getCollect(scope.row.id)"
+            >收藏</el-button
+          >
+        </template>
+      </el-table-column>
+      <!-- 对用户的操作 -->
       <el-table-column label="操作" width="170px" align="center">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -83,6 +101,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页模块 -->
     <div class="pagination">
       <el-pagination
         background
@@ -93,6 +112,7 @@
         @current-change="handleCurrentChange"
       ></el-pagination>
     </div>
+    <!-- 添加，查询，删除 -->
     <el-dialog
       title="添加用户"
       :visible.sync="centerDialogVisible"
@@ -159,6 +179,7 @@
         <el-button size="mini" @click="addConsumer">确定</el-button>
       </span>
     </el-dialog>
+    <!-- 编辑用户 -->
     <el-dialog
       title="修改用户"
       :visible.sync="editVisible"
@@ -209,6 +230,7 @@
         <el-button size="mini" @click="editSave">确定</el-button>
       </span>
     </el-dialog>
+    <!-- 删除用户 -->
     <el-dialog title="删除用户" :visible.sync="delVisible" width="300px" center>
       <div align="center">删除不可恢复，是否确定删除</div>
       <span slot="footer">
@@ -403,6 +425,10 @@ export default {
           console.log(err);
         });
       this.delVisible = false;
+    },
+    //转向该用户的收藏列表
+    getCollect(id) {
+      this.$router.push({ path: "/Collect", query: { id } });
     },
   },
 };

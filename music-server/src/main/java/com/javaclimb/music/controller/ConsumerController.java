@@ -194,7 +194,7 @@ public class ConsumerController {
             return jsonObject;
         }
         //-TOOD 先查询到数据库中对应的文件地址，删除掉它再进行下面的代码
-        //根据歌曲的id，找到对应的avator地址
+        //根据用户的id，找到对应的avator地址
         String Path = consumerService.selectByPrimaryKey(id).getAvator();
         String avator = "img/consumerAvator/mn.jpg";
         if (Path.equals(avator)) {

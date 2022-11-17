@@ -15,7 +15,7 @@ import Lyric from "@/views/Lyric";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: "/", redirect: "/Login" },
+  { path: "/", redirect: "/Home" },
   { path: "/Home", component: Home },
   { path: "/SongList", component: SongList },
   { path: "/MyMusic", component: MyMusic },

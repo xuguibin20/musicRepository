@@ -12,4 +12,6 @@ export default {
   components: { SongAudio },
 };
 </script>
-<style lang="less"></style>
+<style lang="less">
+@import "@/assets/css/main.css";
+</style>

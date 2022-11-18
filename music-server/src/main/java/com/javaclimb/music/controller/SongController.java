@@ -103,6 +103,16 @@ public class SongController {
     }
 
     /**
+     * 根据歌单id查询该歌单下的所有歌曲
+     */
+    @RequestMapping(value = "/songList/detail", method = RequestMethod.GET)
+    public Object listSongOfSongListId(HttpServletRequest request) {
+        String singerId = request.getParameter("songListId").trim();
+        return songService.songOfSingerId(Integer.parseInt(singerId));
+
+    }
+
+    /**
      * 根据歌曲id查询歌曲
      */
     @RequestMapping(value = "/songOfSongId", method = RequestMethod.GET)

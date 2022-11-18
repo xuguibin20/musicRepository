@@ -39,11 +39,11 @@ public class ConsumerController {
         String username = request.getParameter("username").trim();//账号
         String password = request.getParameter("password").trim();//密码
         String sex = request.getParameter("sex").trim();//性别
-        String birth = request.getParameter("birth").trim();//生日
         String location = request.getParameter("location").trim();//地区
         String introduction = request.getParameter("introduction").trim();//简介
         String phoneNum = request.getParameter("phoneNum").trim();//手机号码
         String email = request.getParameter("email").trim();//邮箱
+        String birth = request.getParameter("birth").trim();//生日
         String avator = "img/consumerAvator/mn.jpg";//默认图片，这里在后端写死先；也可以后端接收不写，在前端写死  params.append("avator", "img/consumerAvator/**.jpg");
         //String avator = request.getParameter("avator").trim();////用户头像，这里在前端写死先，在后端接收；也可以前端不写，在后端写死String avator = "img/consumerAvator/**.jpg";
         if (username == null || "".equals(username)) {
@@ -95,7 +95,7 @@ public class ConsumerController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Object updateConsumer(HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();
-        String id = request.getParameter("id").trim();
+        String id = request.getParameter("id").trim();//主键
         String username = request.getParameter("username").trim();//账号
         String password = request.getParameter("password").trim();//密码
         String sex = request.getParameter("sex").trim();//性别

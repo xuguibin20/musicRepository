@@ -1,12 +1,16 @@
 package com.javaclimb.music.service.Impl;
 
 import com.javaclimb.music.dao.ListSongMapper;
+import com.javaclimb.music.dao.SongMapper;
 import com.javaclimb.music.domain.ListSong;
+import com.javaclimb.music.domain.Song;
 import com.javaclimb.music.service.ListSongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 歌单歌曲service实现类
@@ -15,7 +19,13 @@ import java.util.List;
 public class ListSongServiceImpl implements ListSongService {
 
     @Autowired
-    ListSongMapper listSongMapper;
+    private ListSongMapper listSongMapper;
+    private SongMapper songMapper;
+
+    public ListSongServiceImpl(SongMapper songMapper) {
+        this.songMapper = songMapper;
+    }
+
     /**
      * 增加
      * @param listSong
@@ -34,13 +44,27 @@ public class ListSongServiceImpl implements ListSongService {
         return listSongMapper.update(listSong)>0;
     }
 
+
+    /**
+     * 根据歌单id和歌曲id查询歌曲是否重复添加
+     *  @param songId
+     *       @param songListId
+     */
+    public Boolean search(Integer songId, Integer songListId){
+        return listSongMapper.delete(songId,songListId)>0;
+    }
+
     /**
      * 删除
-     * @param id
+     * @param songId
+       * @param songListId
      */
     @Override
-    public Boolean delete(Integer id) {
-        return listSongMapper.delete(id)>0;
+    public Boolean delete(Integer songId,Integer songListId) {
+
+
+
+        return listSongMapper.delete(songId,songListId)>0;
     }
 
     /**
@@ -65,7 +89,13 @@ public class ListSongServiceImpl implements ListSongService {
      * @param songListId
      */
     @Override
-    public List<ListSong> listSongOfSongListId(Integer songListId) {
-        return listSongMapper.listSongOfSongListId(songListId);
+    public List<Song> listSongOfSongListId(Integer songListId) {
+        List<ListSong> listsong=  listSongMapper.listSongOfSongListId(songListId);
+        List<Integer> songId = listsong.stream().map(ListSong::getSongId).collect(Collectors.toList());
+        List<Song> song = new ArrayList<Song>();
+        for(Integer s : songId){
+            song.add(songMapper.selectByPrimaryKey(s));
+        }
+        return song;
     }
 }

@@ -1,8 +1,13 @@
   * {
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
+::-webkit-scrollbar {
 
+  width: 0;
+
+}
   .mgb{
     margin-bottom: 20px;
   }

@@ -24,10 +24,18 @@ public interface ListSongMapper {
     public int update(ListSong listSong);
 
     /**
-     *删除
-     * @param id
+     * 根据歌单id和歌曲id查询歌曲是否重复添加
+     *  @param songId
+     *       @param songListId
      */
-    public int delete(Integer id);
+    public int search(Integer songId, Integer songListId);
+
+    /**
+     *删除
+     * @param songId
+     * @param songListId
+     */
+    public int delete(Integer songId, Integer songListId);
 
     /**
      *根据主键查询所有对象

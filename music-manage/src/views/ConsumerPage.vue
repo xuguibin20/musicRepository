@@ -1,5 +1,6 @@
 <template>
   <div class="table">
+    <!-- 页面操作 -->
     <div class="container">
       <div class="handle-box">
         <el-button type="primary" size="mini" @click="delAll"

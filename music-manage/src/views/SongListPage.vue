@@ -309,7 +309,7 @@ export default {
     },
     //转向歌曲管理页面
     songEdit(id) {
-      this.$router.push({ path: `/ListSong`, query: { id } });
+      this.$router.push({ path: `/ListSongPage`, query: { id } });
     },
   },
 };

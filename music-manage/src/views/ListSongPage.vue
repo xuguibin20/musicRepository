@@ -1,45 +1,30 @@
 <template>
-  <!-- //自创版本 -->
-  <div class="table">
+  <div class="test">
+    <!-- 添加歌曲的下拉框 -->
     <el-drawer
-      title="我是标题"
       :visible.sync="drawer"
       :direction="direction"
       :before-close="handleClose"
+      size="35%"
     >
-      <div>
-        <el-button>取消</el-button>
-        <el-button>确定</el-button>
-      </div>
+      <addSong></addSong>
     </el-drawer>
 
-    <div class="crumbs">
-      <i class="el-icon-tickets">歌单歌曲信息</i>
-    </div>
     <div class="container">
       <div class="handle-box">
         <el-button type="primary" size="mini" @click="delAll"
           >批量删除</el-button
         >
+
         <el-input
           v-model="select_word"
           size="mini"
           placeholder="请输入歌曲名"
           class="handle-input"
         ></el-input>
-        <!-- <el-button
-          type="primary"
-          size="mini"
-          @click="centerDialogVisible = true"
+        <el-button type="primary" size="mini" @click="drawer = true"
           >添加歌曲</el-button
-        > -->
-        <el-button
-          @click="drawer = true"
-          type="primary"
-          style="margin-left: 16px"
         >
-          添加歌曲
-        </el-button>
       </div>
     </div>
     <el-table
@@ -79,7 +64,14 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="歌手-歌名" width="120" align="center">
+      <el-table-column
+        prop="singerName"
+        label="歌手"
+        width="120"
+        align="center"
+      >
+      </el-table-column>
+      <el-table-column prop="songName" label="歌名" width="120" align="center">
       </el-table-column>
       <el-table-column
         prop="introduction"
@@ -100,29 +92,8 @@
           </ul>
         </template>
       </el-table-column>
-      <el-table-column label="资源更新" width="110" align="center">
-        <template slot-scope="scope">
-          <el-upload
-            :action="uploadPicUrl(scope.row.id)"
-            :before-upload="beforePicUpload"
-            :on-success="handleAvatorSuccess"
-          >
-            <el-button size="mini">更新图片</el-button>
-          </el-upload>
-          <br />
-          <el-upload
-            :action="uploadSongUrl(scope.row.id)"
-            :before-upload="beforeSongUpload"
-            :on-success="handleSongSuccess"
-          >
-            <el-button size="mini">更新歌曲</el-button>
-          </el-upload>
-        </template>
-      </el-table-column>
-
       <el-table-column label="操作" width="170px" align="center">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button
             size="mini"
             type="danger"
@@ -142,75 +113,7 @@
         @current-change="handleCurrentChange"
       ></el-pagination>
     </div>
-    <el-dialog
-      title="添加歌曲"
-      :visible.sync="centerDialogVisible"
-      width="400px"
-      center
-    >
-      <el-form
-        :model="registerForm"
-        ref="registerForm"
-        label-width="80px"
-        id="tf"
-      >
-        <el-form-item prop="name" label="歌名" size="mini">
-          <el-input v-model="registerForm.name" placeholder="歌名"></el-input>
-        </el-form-item>
-        <el-form-item prop="introduction" label="专辑" size="mini">
-          <el-input
-            v-model="registerForm.introduction"
-            placeholder="专辑"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="lyric" label="歌词" size="mini">
-          <el-input
-            v-model="registerForm.lyric"
-            placeholder="歌词"
-            type="textarea"
-          ></el-input>
-        </el-form-item>
 
-        <div>
-          <label for="">歌曲上传</label>
-          <input type="file" name="file" id="file" />
-        </div>
-      </el-form>
-
-      <span slot="footer">
-        <el-button size="mini" @click="centerDialogVisible = false"
-          >取消</el-button
-        >
-        <el-button size="mini" @click="addSong">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="编辑歌曲"
-      :visible.sync="editVisible"
-      width="400px"
-      center
-    >
-      <el-form :model="form" ref="form" label-width="80px">
-        <el-form-item prop="name" label="歌手-歌名" size="mini">
-          <el-input v-model="form.name" placeholder="歌手-歌名"></el-input>
-        </el-form-item>
-
-        <el-form-item prop="introduction" label="专辑" size="mini">
-          <el-input v-model="form.introduction" placeholder="专辑"></el-input>
-        </el-form-item>
-        <el-form-item prop="lyric" label="歌词" size="mini">
-          <el-input
-            v-model="form.lyric"
-            placeholder="歌词"
-            type="textarea"
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer">
-        <el-button size="mini" @click="editVisible = false">取消</el-button>
-        <el-button size="mini" @click="editSave">确定</el-button>
-      </span>
-    </el-dialog>
     <el-dialog title="歌曲" :visible.sync="delVisible" width="300px" center>
       <div align="center">删除不可恢复，是否确定删除</div>
       <span slot="footer">
@@ -220,36 +123,33 @@
     </el-dialog>
   </div>
 </template>
+
 <script>
+import addSong from "@/components/addSong.vue";
 import { mixin } from "@/mixins/index";
 import { mapGetters } from "vuex";
 import "@/assets/js/iconfont.js";
-import { songOfSingerId, updateSongMsg, delSong } from "@/api/index";
+import {
+  listSongOfSongListId,
+  search,
+  addSongforList,
+  delSongofListSong,
+} from "@/api/index";
 export default {
   mixins: [mixin],
+  name: "ListSongPage",
+  components: {
+    addSong,
+  },
+
   data() {
     return {
-      songId: "", //歌曲id
-      singerId: "", //歌手id
+      drawer: false,
+      direction: "rtl",
+      songListId: "", //歌单id
       singerName: "", //歌手名
       centerDialogVisible: false, //添加弹窗是否显示
-      editVisible: false, //编辑弹窗是否显示
       delVisible: false, //删除弹窗是否显示
-      drawer: false,
-      direction: " ttb",
-      //添加框
-      registerForm: {
-        name: "",
-        lyric: "",
-        introduction: "",
-      },
-      //修改框
-      form: {
-        id: "",
-        name: "",
-        introduction: "",
-        lyric: "",
-      },
 
       tableData: [],
       tempData: [],
@@ -275,8 +175,26 @@ export default {
         }
       }
     },
+    isPlay() {
+      if (this.isPlay) {
+        this.$store.commit("setplayButtonUrl", "#icon-zanting");
+      } else {
+        this.$store.commit("setplayButtonUrl", "#icon-bofang");
+      }
+    },
+  },
+  watch: {
+    songId() {
+      this.addSong();
+    },
   },
   computed: {
+    ...mapGetters([
+      "isPlay", //getters里的
+      "id", //歌曲id
+      "singerId", //歌手id
+      "songId", //歌曲id
+    ]),
     //计算当前搜索结果表里的数据
     data() {
       return this.tableData.slice(
@@ -284,14 +202,14 @@ export default {
         this.currentPage * this.pageSize
       );
     },
-    ...mapGetters([
-      "isPlay", //getters里的？
-    ]),
   },
+
   created() {
-    this.singerId = this.$route.query.id;
-    this.singerName = this.$route.query.name;
+    this.songListId = this.$route.query.id;
     this.getData();
+  },
+  destroyed() {
+    this.$store.commit("setisPlay", false);
   },
   methods: {
     handleClose(done) {
@@ -305,11 +223,11 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-    //根据歌手id查询歌曲
+    //根据歌单id查询歌曲
     getData() {
       this.tempData = [];
       this.tableData = [];
-      songOfSingerId(this.singerId).then((res) => {
+      listSongOfSongListId(this.songListId).then((res) => {
         this.tableData = res;
         this.tempData = res;
         this.currentPage = 1;
@@ -317,79 +235,33 @@ export default {
     },
     //添加歌曲
     addSong() {
-      let _this = this;
-      var form = new FormData(document.getElementById("tf"));
-      form.append("singerId", this.singerId);
-      form.append("introduction", this.registerForm.introduction);
-      form.append("lyric", this.registerForm.lyric);
-      form.set("name", this.singerName + "-" + this.registerForm.name);
-      if (!form.get("lyric")) {
-        form.set("lyric", "[00:00:00]暂无歌词");
-      }
-      var req = new XMLHttpRequest();
-      req.onreadystatechange = function () {
-        //req.readyState == 4 获取到返回的完整数据
-        // req.status == 200 和后台正常交互完成了
-        if (req.readyState == 4 && req.status == 200) {
-          let res = JSON.parse(req.response);
-          if (res.code == 1) {
-            _this.getData();
-
-            _this.registerForm = {};
-            //bug 上传文件不会清空
-            _this.notify("保存成功", "success");
-          } else {
-            _this.notify("保存失败", "error");
-          }
-          //刷新页面
-        }
-      };
-      req.open("post", `${_this.$store.state.HOST}/song/add`, false);
-      req.send(form);
-      _this.centerDialogVisible = false;
-    },
-    //弹出编辑页面
-    handleEdit(row) {
-      this.editVisible = true;
-      this.form = {
-        id: row.id,
-        name: row.name,
-        introduction: row.introduction,
-        lyric: row.lyric,
-      };
-    },
-    // 保存编辑页面修改的数据
-    editSave() {
       let params = new URLSearchParams();
-      params.append("id", this.form.id);
-      params.append("name", this.form.name);
-      params.append("introduction", this.form.introduction);
-      params.append("lyric", this.form.lyric);
-      updateSongMsg(params)
-        .then((res) => {
-          if (res.code == 1) {
-            this.getData();
-            this.notify("编辑成功", "success");
-          } else {
-            this.notify("编辑失败", "error");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      this.editVisible = false;
+      params.append("songListId", this.songListId);
+      params.append("songId", this.songId);
+      search(params).then((res) => {
+        if (res == 1) {
+          this.notify("重复添加", "error");
+        } else {
+          addSongforList(params)
+            .then((res) => {
+              if (res.code == 1) {
+                this.getData();
+
+                this.notify("添加成功", "success");
+              } else {
+                this.notify("添加失败", "error");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      });
     },
-    //更新图片
-    uploadPicUrl(id) {
-      return `${this.$store.state.HOST}/song/updateSongPic?id=${id}`;
-    },
-    //更新歌曲
-    uploadSongUrl(id) {
-      return `${this.$store.state.HOST}/song/updateSong?id=${id}`;
-    },
+
     //删除一首歌
     deleteRow() {
-      delSong(this.idx)
+      delSongofListSong(this.idx)
         .then((res) => {
           if (res) {
             this.getData();
@@ -418,54 +290,50 @@ export default {
       }
       return result;
     },
-    //更新歌曲之前的检验
-    beforeSongUpload(file) {
-      let _this = this;
-      var testMsg = file.name.substring(file.name.lastIndexOf(".") + 1);
-      if (testMsg != "mp3") {
-        _this.$notify({
-          title: "上传文件只能是mp3格式",
-          type: "error",
+    handleDelete(id) {
+      let params = new URLSearchParams();
+      params.append("songListId", this.songListId);
+      params.append("songId", id);
+
+      delSongofListSong(params)
+        .then((res) => {
+          if (res.code == 1) {
+            this.getData();
+
+            this.notify("删除成功", "success");
+          } else {
+            this.notify("删除失败", "error");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        return false;
-      }
-      return true;
-    },
-    //更新歌曲成功之后要做的工作
-    handleSongSuccess(res) {
-      let _this = this;
-      if (res.code == 1) {
-        _this.getData();
-        window.setTimeout(function () {
-          window.location.reload();
-        });
-        _this.$notify({
-          title: "更新成功",
-          type: "success",
-        });
-      } else {
-        _this.$notify({
-          title: "更新失败",
-          type: "error",
-        });
-      }
     },
     //切换播放歌曲
     getSongUrl(url, id) {
-      this.toggle = id;
       this.$store.commit("setUrl", this.$store.state.HOST + "/" + url);
-      if (this.isPlay) {
-        this.$store.commit("setisPlay", false);
-        this.toggle = " id";
+      if (id == this.$store.state.id) {
+        if (this.isPlay) {
+          this.$store.commit("setisPlay", false);
+          this.toggle = " id";
+        } else {
+          this.$store.commit("setisPlay", true);
+          this.toggle = id;
+        }
       } else {
+        this.$store.commit("setId", id);
         this.$store.commit("setisPlay", true);
         this.toggle = id;
       }
+      // this.$store.commit("setId", id);
     },
   },
 };
 </script>
 <style scoped>
+.el-drawer {
+  width: 40%;
+}
 .table {
   min-width: 800px;
 }

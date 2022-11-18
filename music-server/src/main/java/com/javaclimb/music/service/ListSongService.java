@@ -1,6 +1,7 @@
 package com.javaclimb.music.service;
 
 import com.javaclimb.music.domain.ListSong;
+import com.javaclimb.music.domain.Song;
 
 import java.util.List;
 
@@ -22,10 +23,18 @@ public interface ListSongService {
     public Boolean update(ListSong listSong);
 
     /**
-     *删除
-     * @param id
+     * 根据歌单id和歌曲id查询歌曲是否重复添加
+     *  @param songId
+     *       @param songListId
      */
-    public Boolean delete(Integer id);
+    public Boolean search(Integer songId, Integer songListId);
+
+    /**
+     *删除
+     * @param songId
+     *  @param songListId
+     */
+    public Boolean delete(Integer songId,Integer songListId);
 
     /**
      *根据主键查询所有对象
@@ -43,6 +52,6 @@ public interface ListSongService {
      * 根据歌单id查询所有的歌曲
      * @param songListId
      */
-    public List<ListSong> listSongOfSongListId(Integer songListId);
+    public List<Song> listSongOfSongListId(Integer songListId);
 
 }

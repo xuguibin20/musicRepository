@@ -6,7 +6,7 @@ import MyMusic from "@/views/MyMusic";
 import SongList from "@/views/SongList";
 import Search from "@/views/Search";
 import Login from "@/views/Login";
-import Register from "@/views/Register";
+import SignUp from "@/views/SignUp";
 import Setting from "@/views/Setting";
 import SingerAlbum from "@/views/SingerAlbum";
 import SongListAlbum from "@/views/SongListAlbum";
@@ -22,7 +22,7 @@ const routes = [
   { path: "/Singer", component: Singer },
   { path: "/Search", component: Search },
   { path: "/Login", component: Login },
-  { path: "/Register", component: Register },
+  { path: "/SignUp", component: SignUp },
   {
     path: "/Lyric",
     component: Lyric,

@@ -57,4 +57,14 @@ public interface SongMapper {
      * @param singerId
      */
     public List<Song> songOfSingerId(Integer singerId);
+
+    /**
+     * 根据歌单id查询该歌单下的所有歌曲
+     */
+
+    public List<Song>  listSongOfSongListId(Integer songListId) ;
+
+
+
+
 }

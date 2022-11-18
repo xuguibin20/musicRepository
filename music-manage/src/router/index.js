@@ -6,9 +6,10 @@ import Home from "@/components/Home";
 import ConsumerPage from "@/views/ConsumerPage";
 import SingerPage from "@/views/SingerPage";
 import SongListPage from "@/views/SongListPage";
-import ListSongPage from "@/views/ListSongPage";
+import ListSongPage from "@/views/ListSongPage.vue";
 import SongPage from "@/views/SongPage";
 import Collect from "@/views/Collect";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -22,7 +23,7 @@ const routes = [
       { path: "/Info", component: InfoPage },
       { path: "/Consumer", component: ConsumerPage },
       { path: "/SongList", component: SongListPage },
-      { path: "/ListSong", component: ListSongPage },
+      { path: "/ListSongPage", component: ListSongPage },
       { path: "/Singer", component: SingerPage },
       { path: "/Song", component: SongPage },
       { path: "/Collect", component: Collect },

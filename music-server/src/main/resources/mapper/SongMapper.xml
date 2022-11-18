@@ -144,5 +144,12 @@
         where singer_id = #{singerId}
     </select>
 
+    <select id="listSongOfSongListId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Blob_Column_List"/>
+        from song
+        where singer_id = #{singerId}
+    </select>
+
 
 </mapper>

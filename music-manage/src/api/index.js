@@ -65,12 +65,15 @@ export const updateSongList = (params) => post("songList/update", params);
 export const delSongList = (id) => get(`songList/delete?id=${id}`);
 
 // ---------歌单的歌曲相关---------
-//根据歌单id查询歌曲列表
-export const listSongOfSongListId = (songListId) =>
-  get(`listSong/listSongOfSongListId?songListId=${songListId}`);
 
 //给歌单增加歌曲
 export const addSongforList = (params) => post("listSong/add", params);
 
 //删除歌单里的歌曲
-export const delSongofListSong = (id) => get(`listSong/delete?id=${id}`);
+export const delSongofListSong = (params) => post("listSong/delete", params);
+
+//根据歌单id查询歌曲
+export const listSongOfSongListId = (id) =>
+  get(`listSong/listSongOfSongListId?songListId=${id}`);
+//根据歌单id和歌曲id查询歌曲是否重复添加
+export const search = (params) => post("listSong/search", params);

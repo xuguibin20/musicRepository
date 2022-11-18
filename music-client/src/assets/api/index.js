@@ -39,15 +39,17 @@ export const selectByPrimaryKey = (id) =>
 
 //查询歌单
 export const getAllSongList = () => get(`songList/allSongList`);
-//根据歌单id查询歌曲列表
-export const listSongDetail = (songListId) =>
-  get(`listSong/detail?songListId=${songListId}`);
+
 //根据关键字模糊查询歌单列表
 export const getSongListOfLikeTitle = (keywords) =>
   get(`songList/likeSongListOfTitle?title=${keywords}`);
 //根据风格模糊查询歌单
 export const getSongListOfLikeStyle = (style) =>
   get(`songList/songListofStyle?style=${style}`);
+
+//根据歌单id查询歌曲
+export const listSongOfSongListId = (id) =>
+  get(`listSong/listSongOfSongListId?songListId=${id}`);
 // ------------用户相关--------------
 
 //查询用户

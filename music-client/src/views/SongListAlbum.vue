@@ -33,7 +33,7 @@
         <h2>歌单</h2>
         <hr />
         <AlbumContent :songList="listOfSongs"></AlbumContent>
-        <Comment :payId="songListId" :type="1"></Comment>
+        <Comment :playId="songListId" :type="1"></Comment>
       </div>
     </div>
     <ScrollTop></ScrollTop>
@@ -48,7 +48,7 @@ import AlbumContent from "@/components/AlbumContent.vue";
 import Comment from "@/components/Comment.vue";
 import { mapGetters } from "vuex";
 import {
-  listSongDetail,
+  listSongOfSongListId,
   songOfSongId,
   setRank,
   getRankOfSongListId,
@@ -97,27 +97,15 @@ export default {
     },
     //获取当前歌单的歌曲列表
     getSongId() {
-      listSongDetail(this.songListId)
+      listSongOfSongListId(this.songListId)
         .then((res) => {
-          for (let item of res) {
-            this.getSongList(item.songId);
-          }
-          this.$store.commit("setListOfSsongs", this.songList);
+          this.$store.commit("setListOfSongs", res);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    //根据歌曲id获取歌曲信息
-    getSongList(id) {
-      songOfSongId(id)
-        .then((res) => {
-          this.songList.push(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+
     //获取歌单评分
     getRank(id) {
       getRankOfSongListId(id)

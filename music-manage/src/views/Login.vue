@@ -67,18 +67,18 @@ export default {
 <style lang="less" scoped>
 .login-wrap {
   position: relative;
-  background-image: url("@/assets/images/微信图片_20220928212233.jpg");
-  background-repeat: repeat-y;
+  background-image: url("@/assets/images/background.jpg");
+  background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: 400px;
+
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height: 864px;
 }
 
 .ms-title {
   position: absolute;
-  top: 50%;
+  top: 5%;
   width: 100%;
   margin-top: 230px;
   text-align: center;
@@ -89,12 +89,11 @@ export default {
 
 .ms-login {
   position: absolute;
-  left: 30%;
-  top: 60%;
+  left: 50%;
+  top: 10%;
   width: 300px;
   height: 160px;
-  margin-left: 190px;
-  margin-top: 300px;
+
   padding: 40px;
   border-radius: 5px;
   background: #fff;

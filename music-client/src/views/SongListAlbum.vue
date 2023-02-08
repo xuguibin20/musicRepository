@@ -40,7 +40,6 @@
     <TheList></TheList>
     <PlayBar></PlayBar>
     <User></User>
-    <TheFooter></TheFooter>
   </div>
 </template>
 <script>

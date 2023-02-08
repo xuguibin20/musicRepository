@@ -112,7 +112,6 @@ export default {
       setConsumer(params)
         .then((res) => {
           if (res.code == 1) {
-          
             this.notify("修改成功", "success");
           } else {
             this.notify("修改失败", "error");

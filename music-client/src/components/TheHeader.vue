@@ -1,10 +1,7 @@
 <template>
   <div class="the-header">
     <div class="header-logo" @click="goHome">
-      <svg class="icon">
-        <use xlink:href="#icon-erji"></use>
-      </svg>
-      <span>music</span>
+      <img src="@/assets/png/_音符.png" alt="" />
     </div>
     <ul class="navbar navbar1">
       <li v-for="item in navMsg" :key="item.path" @click="goPage(item.path)">
@@ -21,9 +18,7 @@
             v-model="keywords"
           />
           <div class="search-btn" @click="goSearch()">
-            <svg class="icon">
-              <use xlink:href="#icon-sousuo"></use>
-            </svg>
+            <img src="@/assets/png/搜索.png" alt="" />
           </div>
         </div>
       </li>
@@ -35,21 +30,25 @@
         </li>
       </ul>
     </div>
-    <div class="navbar navbar1 right-position" v-show="Login">
+    <div class="navbar navbar1 right-position login-box" v-show="Login">
       <div id="user">
         <img :src="attachImageUrl(avator)" />
       </div>
       <!-- 后期改样式，用这个样式navbar navbar1 right-position的盒子，高度变成竖直方向就有下拉菜单了 -->
-      <ul class="menu">
-        <li
-          v-for="(item, index) in menuList"
-          :key="index"
-          @click="goMenuList(item.path)"
-        >
-          {{ item.name }}
-        </li>
-      </ul>
+
+      <div class="menu">
+        <ul>
+          <li
+            v-for="(item, index) in menuList"
+            :key="index"
+            @click="goMenuList(item.path)"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </div>
     </div>
+
     <div class="btn-fullscreen" @click="handleFullScreen">
       <el-tooltip
         :content="fullscreen ? `取消全屏` : `全屏`"

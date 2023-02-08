@@ -1,7 +1,13 @@
 @charset "UTF-8";
-.my-music { margin-top: 70px; padding-top: 150px; background-color: #e6ecf0; }
+.my-music-box{
+  margin-top: 70px;
+  width: 100%;
+    height: 100%;
+}
+.my-music { margin-top: 70px; padding-top: 150px; background-color: #e6ecf0;width: 100%;
+  height: 100%; }
 
-.my-music::before { /*背景*/ content: ""; background-color: #95d2f6; position: absolute; top: 0; width: 100%; height: 220px; }
+.my-music::before { /*背景*/ content: ""; background-color: #00a9ff; position: absolute; top: 0; width: 100%; height: 220px; }
 
 /*左侧*/
 .album-slide { float: left; width: 400px; /*信息*/ }
@@ -10,9 +16,9 @@
 
 .album-slide .album-img img { width: 100%; }
 
-.album-slide .album-info { color: #000000; width: 500px; font-size: 20px; font-weight: 500; margin-top: -100px; margin-left: 100px; padding: 30px 30px; }
+.album-slide .info1 { color: #000000; width: 500px; font-size: 20px; font-weight: 500; margin-top: -100px; margin-left: 100px;  }
 
-.album-slide .album-info li { width: 100%; line-height: 40px; }
+.album-slide .info1 li { width: 100%; line-height: 40px; list-style: none;}
 
 /*歌单内容*/
 .album-content { margin-left: 300px; padding: 40px 100px; /*歌单题目*/ }

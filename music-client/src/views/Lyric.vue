@@ -13,12 +13,15 @@
     <TheHeader></TheHeader>
 
     <div class="song-lyric">
-      <h1 class="lyric-title" style="padding-top: 80px; padding-bottom: 5px">
+      <h1
+        class="lyric-title"
+        style="padding-top: 7px; margin-top: 72px; padding-bottom: 5px"
+      >
         {{ songName }}
       </h1>
       <!-- 有歌词显示歌词列表 -->
-      <div class="has-lyric-box">
-        <ul class="has-lyric" v-if="lyr.length" key="index" ref="hasLyric">
+      <div class="has-lyric-box" id="hasLyric">
+        <ul class="has-lyric" v-if="lyr.length" key="index">
           <li v-for="(item, index) in lyr" :key="index">
             {{ item[1] }}
           </li>
@@ -32,7 +35,6 @@
     </div>
     <TheList></TheList>
     <PlayBar></PlayBar>
-    <TheFooter></TheFooter>
   </div>
 </template>
 <script>
@@ -70,7 +72,6 @@ export default {
       if (this.lyr.length > 0) {
         for (let i = 0; i < this.lyr.length; i++) {
           if (this.curTime >= this.lyr[i][0]) {
-            this.$refs.hasLyric.style.top += "-40px";
             for (let j = 0; j < this.lyr.length; j++) {
               document.querySelectorAll(".has-lyric li")[j].style.color =
                 "#000";

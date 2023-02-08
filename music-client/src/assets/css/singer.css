@@ -1,5 +1,9 @@
 div, ul, li { box-sizing: border-box; }
 
+.singer-box{
+  width: 100%;
+    height: 100%;
+}
 .singer { margin: 30px 10%; margin-top: 90px; padding-bottom: 50px; background-color: #ffffff; }
 
 .singer .singer-header { width: 100%; padding: 0 40px; margin-top: -40px;}

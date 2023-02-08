@@ -177,10 +177,12 @@ export default {
     getSinger() {
       getAllSinger().then((res) => {
         this.singer = res;
+
         this.singerSex.rows[0]["总数"] = this.setSex(0, this.singer);
         this.singerSex.rows[1]["总数"] = this.setSex(1, this.singer);
         this.singerSex.rows[2]["总数"] = this.setSex(2, this.singer);
         this.singerSex.rows[3]["总数"] = this.setSex(3, this.singer);
+
         this.singerCount = res.length;
       });
     },

@@ -1,8 +1,6 @@
 <template>
   <div class="search-song-Lists">
     <ContentList :contentList="albumDatas"></ContentList>
-
-    <PlayBar></PlayBar>
   </div>
 </template>
 <script>

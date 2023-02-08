@@ -6,7 +6,6 @@
 
 .play-bar .kongjian .item { position: relative; width: 80px; height: 50px; line-height: 60px; text-align: center; cursor: pointer; }
 
-.play-bar .kongjian .item .icon.active { color: red !important; }
 
 .play-bar .kongjian .item .volume { position: absolute; display: none; height: 100px; top: -110px; right: 22px; }
 
@@ -23,7 +22,7 @@ img:not([src]) {
 .play-bar .kongjian .item-img img { width: 100%;height:100%;}
 
 
-.play-bar .kongjian .playing-speed { height: 50px; width: 600px; display: flex; justify-content: center; align-items: center; flex-direction: row; flex-wrap: nowrap; }
+.play-bar .kongjian .playing-speed { height: 50px; width: 600px;margin-top:5px; display: flex; justify-content: center; align-items: center; flex-direction: row; flex-wrap: nowrap; }
 
 .play-bar .kongjian .playing-speed .current-time, .play-bar .kongjian .playing-speed .left-time { display: inline-block; width: 40px; text-align: center; font-size: 13px; color: #000000; font-weight: 500; top: -10px; }
 
@@ -51,3 +50,4 @@ img:not([src]) {
 .show { bottom: -55px; }
 
 .icon { width: 1.2em; height: 1.2em; font-size: 1.2em; color: #000000; fill: currentColor; overflow: hidden; position: relative; }
+

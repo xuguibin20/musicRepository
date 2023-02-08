@@ -6,7 +6,7 @@
         <div class="album-img">
           <img :src="attachImageUrl(avator)" alt="" />
         </div>
-        <ul class="info">
+        <ul class="info1">
           <li>名称{{ username }}</li>
           <li>性别：{{ userSex }}</li>
           <li>生日：{{ birth }}</li>
@@ -23,7 +23,6 @@
     <ScrollTop></ScrollTop>
     <PlayBar></PlayBar>
     <User></User>
-    <TheFooter></TheFooter>
   </div>
 </template>
 <script>

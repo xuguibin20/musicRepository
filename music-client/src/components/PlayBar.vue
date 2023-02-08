@@ -6,9 +6,7 @@
     :class="{ show: !toggle }"
   >
     <div @click="toggle = !toggle" class="item-up" :class="{ turn: !toggle }">
-      <svg style="width: 20px; height: 20px">
-        <use xlink:href="#icon-jiantou-xia-cuxiantiao"></use>
-      </svg>
+      <img src="@/assets/png/收缩下箭头.png" alt="" />
     </div>
     <div class="kongjian">
       <div class="progress-box">
@@ -74,10 +72,10 @@
           </div>
 
           <!-- 音量 -->
+
           <div class="item item-volume">
-            <svg class="icon">
-              <use xlink:href="#icon-yinliang1"></use>
-            </svg>
+            <img src="@/assets/png/音量调节.png" alt="" />
+
             <el-slider
               class="volume"
               v-model="num"
@@ -86,21 +84,16 @@
           </div>
           <!-- 收藏 -->
           <div class="item" @click="collection">
-            <svg :class="{ active: isCollect }" class="icon">
-              <use xlink:href="#icon-xihuan-shi"></use>
-            </svg>
+            <img v-if="isCollect" src="@/assets/png/爱心1.png" />
+            <img v-else src="@/assets/png/爱心.png" />
           </div>
           <!-- 下载 -->
           <div class="item" @click="collection">
-            <svg class="icon">
-              <use xlink:href="#icon-xiazai"></use>
-            </svg>
+            <img src="@/assets/png/下载.png" alt="" />
           </div>
           <!-- 当前播放的歌曲列表 -->
           <div class="item" @click="changeAside">
-            <svg class="icon">
-              <use xlink:href="#icon-liebiao"></use>
-            </svg>
+            <img src="@/assets/png/列表.png" alt="" />
           </div>
         </div>
       </div>
@@ -439,10 +432,12 @@ export default {
             if (res.code == 1) {
               this.notify("取消成功", "success");
               this.$store.commit("setisCollect", false);
-              this.$router.go(0); //刷新页面
             } else {
               this.notify("取消失败", "error");
             }
+            setTimeout(() => {
+              this.$router.go(0); //刷新页面
+            }, 1000);
           });
         } else {
           let params = new URLSearchParams();
@@ -453,9 +448,11 @@ export default {
             if (res.code == 1) {
               this.notify("收藏成功", "success");
               this.$store.commit("setisCollect", true);
-              this.$router.go(0); //刷新页面
+              setTimeout(() => {
+                this.$router.go(0); //刷新页面
+              }, 1000);
             } else if (res.code == 2) {
-              this.notify("已收藏", "warning");
+              this.notify("已收藏过", "warning");
             } else {
               this.notify("收藏失败", "error");
             }

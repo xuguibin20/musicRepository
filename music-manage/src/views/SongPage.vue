@@ -405,13 +405,13 @@ export default {
     beforeSongUpload(file) {
       let _this = this;
       var testMsg = file.name.substring(file.name.lastIndexOf(".") + 1);
-      if (testMsg != "mp3") {
-        _this.$notify({
-          title: "上传文件只能是mp3格式",
-          type: "error",
-        });
-        return false;
-      }
+      // if (testMsg != "mp3") {
+      //   _this.$notify({
+      //     title: "上传文件只能是mp3格式",
+      //     type: "error",
+      //   });
+      //   return false;
+      // }
       return true;
     },
     //更新歌曲成功之后要做的工作

@@ -1,6 +1,8 @@
 import { get, post } from "@/api/http.js";
 
 // ---------用户相关---------
+//根据用户id查询用户
+export const getUserOfId = (id) => get(`consumer/selectByPrimaryKey?id=${id}`);
 // 获得所有用户
 export const getAllConsumer = () => get("consumer/allConsumer");
 
@@ -85,3 +87,11 @@ export const getCollectOfUserId = (userId) =>
 
 //删除用户收藏的歌曲
 export const delCollection = (params) => post("collect/delete", params);
+
+// ---------评论---------
+//指定用户的收藏列表
+export const getCommentOfSongListId = (id) =>
+  get(`comment/commentOfSongListId?songListId=${id}`);
+
+//删除评论
+export const delComment = (id) => get(`comment/delete?id=${id}`);

@@ -30,7 +30,7 @@
       <el-table-column type="selection" width="40px"></el-table-column>
       
       <el-table-column
-        prop="singerName"
+        prop="name"
         label="用户名"
         width="500"
         align="center"
@@ -38,7 +38,7 @@
       </el-table-column>
      
       <el-table-column
-        prop="introduction"
+        prop="content"
         label="评论"
        size="max"
         align="center"
@@ -75,14 +75,13 @@
 import { mixin } from "@/mixins/index";
 import { mapGetters } from "vuex";
 import "@/assets/js/iconfont.js";
-import { getCollectOfUserId, delCollection } from "@/api/index";
+import { getUserOfId, getCommentOfSongListId, delComment } from "@/api/index";
 export default {
   mixins: [mixin],
   name: "Comment",
 
   data() {
     return {
-      singerName: "", //歌手名
       delVisible: false, //删除弹窗是否显示
 
       tableData: [],
@@ -92,7 +91,6 @@ export default {
       currentPage: 1, //当前页
       idx: -1, //当前选择项目
       multipleSelection: [], //哪些项已经打勾了
-      toggle: false, //播放器显示图标的状态
     };
   },
   watch: {
@@ -145,18 +143,28 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-    //根据用户id查询所有收藏的歌曲
+    //根据歌单id查询所有评论
     getData() {
       this.tempData = [];
       this.tableData = [];
-      getCollectOfUserId(this.$route.query.id).then((res) => {
-        this.tableData = res;
-        this.tempData = res;
+
+      getCommentOfSongListId(this.$route.query.id).then((res) => {
+        for (let item of res) {
+          this.getUsers(item.userId, item);
+        }
+
         this.currentPage = 1;
       });
     },
-
-    //删除一首歌
+    getUsers(id, item) {
+      getUserOfId(id).then((res) => {
+        let o = item;
+        o.name = res.username;
+        this.tableData.push(o);
+        this.tempData.push(o);
+      });
+    },
+    //删除评论
     handleDelete(id) {
       let params = new URLSearchParams();
       params.append("userId", this.$route.query.id);

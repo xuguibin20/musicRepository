@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="play-bar"
-    @mouseup="mouseup"
-    @mouseleave="mouseleave"
-    :class="{ show: !toggle }"
-  >
+  <div class="play-bar" @mouseup="mouseup" :class="{ show: !toggle }">
     <div @click="toggle = !toggle" class="item-up" :class="{ turn: !toggle }">
       <img src="@/assets/png/收缩下箭头.png" alt="" />
     </div>
@@ -242,11 +237,17 @@ export default {
     mousedown(e) {
       this.mouseStartX = e.clientX;
       this.tag = true;
+      document.body.onselectstart = () => {
+        return false;
+      };
     },
     //结束拖动
     mouseup() {
       this.tag = false;
       this.$store.commit("setisPlay", true);
+      document.body.onselectstart = () => {
+        return true;
+      };
     },
     //正在拖动
     mousemove(e) {
@@ -273,10 +274,7 @@ export default {
         // }
       }
     },
-    //鼠标离开进度条范围
-    mouseleave() {
-      this.tag = false;
-    },
+
     //更改歌曲进度
     changTime(percent) {
       let newCurTime = percent * 0.01 * this.duration;

@@ -13,7 +13,7 @@
         <el-input
           v-model="select_word"
           size="mini"
-          placeholder="请输入歌曲名"
+          placeholder="请输入用户名"
           class="handle-input"
         ></el-input>
       
@@ -28,62 +28,23 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="40px"></el-table-column>
-      <el-table-column label="歌曲图片" width="110" align="center">
-        <template slot-scope="scope">
-          <div class="song-img">
-            <img
-              :src="getUrl(scope.row.pic)"
-              style="width: 100%; aspect-ratio: 1 / 1"
-            />
-            <div class="mask" style="width: 100%; aspect-ratio: 1 / 1"></div>
-          </div>
-
-          <div class="play">
-            <div
-              v-if="toggle == scope.row.id"
-              class="icon-total"
-              @click="getSongUrl(scope.row.url, scope.row.id)"
-            >
-              <svg class="icon"><use xlink:href="#icon-zanting"></use></svg>
-            </div>
-            <div
-              v-if="toggle != scope.row.id"
-              class="icon-total"
-              @click="getSongUrl(scope.row.url, scope.row.id)"
-            >
-              <svg class="icon"><use xlink:href="#icon-bofanganniu"></use></svg>
-            </div>
-          </div>
-        </template>
-      </el-table-column>
+      
       <el-table-column
         prop="singerName"
-        label="歌手"
-        width="120"
+        label="用户名"
+        width="500"
         align="center"
       >
       </el-table-column>
-      <el-table-column prop="songName" label="歌名" width="120" align="center">
-      </el-table-column>
+     
       <el-table-column
         prop="introduction"
-        label="专辑"
-        width="150"
+        label="评论"
+       size="max"
         align="center"
       >
       </el-table-column>
-      <el-table-column label="歌词" align="center">
-        <template slot-scope="scope">
-          <ul style="height: 100px; overflow: scroll">
-            <li
-              v-for="(item, index) in parseLyric(scope.row.lyric)"
-              :key="index"
-            >
-              {{ item }}
-            </li>
-          </ul>
-        </template>
-      </el-table-column>
+    
       <el-table-column label="操作" width="170px" align="center">
         <template slot-scope="scope">
           <el-button
@@ -117,7 +78,7 @@ import "@/assets/js/iconfont.js";
 import { getCollectOfUserId, delCollection } from "@/api/index";
 export default {
   mixins: [mixin],
-  name: "Collect",
+  name: "Comment",
 
   data() {
     return {
@@ -146,13 +107,6 @@ export default {
             this.tableData.push(item);
           }
         }
-      }
-    },
-    isPlay() {
-      if (this.isPlay) {
-        this.$store.commit("setplayButtonUrl", "#icon-zanting");
-      } else {
-        this.$store.commit("setplayButtonUrl", "#icon-bofang");
       }
     },
   },
@@ -202,21 +156,6 @@ export default {
       });
     },
 
-    //解析歌词
-    parseLyric(text) {
-      let lines = text.split("\n");
-      let pattern = /\[\d{2}:\d{2}.(\d{3}|\d{2})\]/g;
-      let result = [];
-      if (text == "") {
-        result = "暂无歌词";
-      } else {
-        for (let item of lines) {
-          let value = item.replace(pattern, "");
-          result.push(value);
-        }
-      }
-      return result;
-    },
     //删除一首歌
     handleDelete(id) {
       let params = new URLSearchParams();
@@ -237,24 +176,6 @@ export default {
           console.log(err);
         });
     },
-    //切换播放歌曲
-    getSongUrl(url, id) {
-      this.$store.commit("setUrl", this.$store.state.HOST + "/" + url);
-      if (id == this.$store.state.id) {
-        if (this.isPlay) {
-          this.$store.commit("setisPlay", false);
-          this.toggle = " id";
-        } else {
-          this.$store.commit("setisPlay", true);
-          this.toggle = id;
-        }
-      } else {
-        this.$store.commit("setId", id);
-        this.$store.commit("setisPlay", true);
-        this.toggle = id;
-      }
-      // this.$store.commit("setId", id);
-    },
   },
 };
 </script>
@@ -270,13 +191,6 @@ export default {
   border-radius: 5px;
 }
 
-.song-img {
-  height: 80px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  overflow: hidden;
-}
-
 .handle-input {
   width: 300px;
   display: inline-block;
@@ -286,38 +200,5 @@ export default {
 .pagination {
   display: flex;
   justify-content: center;
-}
-
-.crumbs {
-  margin-bottom: 20px;
-}
-.play {
-  position: absolute;
-  z-index: 100;
-  width: 87px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  top: 15px;
-  left: 11px;
-  overflow: hidden;
-}
-.play:hover {
-  background-color: rgba(71, 71, 71, 0.4);
-  border-radius: 5px;
-}
-
-.icon-total {
-  margin-top: 10px;
-  margin-left: 5px;
-}
-.icon {
-  width: 2em;
-  height: 2em;
-  color: rgb(254, 254, 255);
-  fill: currentColor;
-  overflow: hidden;
 }
 </style>

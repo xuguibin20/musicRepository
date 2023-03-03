@@ -113,14 +113,6 @@
         @current-change="handleCurrentChange"
       ></el-pagination>
     </div>
-
-    <el-dialog title="歌曲" :visible.sync="delVisible" width="300px" center>
-      <div align="center">删除不可恢复，是否确定删除</div>
-      <span slot="footer">
-        <el-button size="mini" @click="delVisible = false">取消</el-button>
-        <el-button size="mini" @click="deleteRow">确定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -259,22 +251,6 @@ export default {
       });
     },
 
-    //删除一首歌
-    deleteRow() {
-      delSongofListSong(this.idx)
-        .then((res) => {
-          if (res) {
-            this.getData();
-            this.notify("删除成功", "success");
-          } else {
-            this.notify("删除失败", "error");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      this.delVisible = false;
-    },
     //解析歌词
     parseLyric(text) {
       let lines = text.split("\n");
@@ -290,6 +266,8 @@ export default {
       }
       return result;
     },
+
+    //删除一首歌
     handleDelete(id) {
       let params = new URLSearchParams();
       params.append("songListId", this.songListId);

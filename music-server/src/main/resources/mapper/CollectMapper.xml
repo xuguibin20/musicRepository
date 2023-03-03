@@ -57,9 +57,11 @@
 </trim>
     </insert>
 
+
+
     <delete id="delete" parameterType="java.lang.Integer">
         delete from collect
-        where song_id = #{songId}
+        where user_id = #{userId} and song_id = #{songId}
     </delete>
 
     <select id="allCollect" resultMap="BaseResultMap">

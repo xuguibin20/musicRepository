@@ -77,3 +77,11 @@ export const listSongOfSongListId = (id) =>
   get(`listSong/listSongOfSongListId?songListId=${id}`);
 //根据歌单id和歌曲id查询歌曲是否重复添加
 export const search = (params) => post("listSong/search", params);
+
+// ---------收藏---------
+//指定用户的收藏列表
+export const getCollectOfUserId = (userId) =>
+  get(`collect/collectOfUserId?userId=${userId}`);
+
+//删除用户收藏的歌曲
+export const delCollection = (params) => post("collect/delete", params);

@@ -2,6 +2,7 @@ package com.javaclimb.music.dao;
 
 
 import com.javaclimb.music.domain.Collect;
+import com.javaclimb.music.domain.ListSong;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -19,11 +20,14 @@ public interface CollectMapper {
     public int insert(Collect collect);
 
 
+
+
     /**
-     *删除
+     *根据用户id和歌曲id删除
+     * @param userId
      * @param songId
      */
-    public int delete(Integer songId);
+    public int delete(Integer songId, Integer userId);
 
     /**
      *查询所有收藏
@@ -31,10 +35,11 @@ public interface CollectMapper {
     public List<Collect> allCollect();
 
     /**
-     * 查询某个用户的收藏列表
+     * 根据用户id查询所有的歌曲
      * @param userId
      */
     public List<Collect> collectOfUserId(Integer userId);
+
 
     /**
      * 查询某个用户是否已经收藏了某个歌曲

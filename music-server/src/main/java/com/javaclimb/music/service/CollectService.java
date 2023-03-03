@@ -1,6 +1,7 @@
 package com.javaclimb.music.service;
 
 import com.javaclimb.music.domain.Collect;
+import com.javaclimb.music.domain.Song;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,27 +17,33 @@ public interface CollectService {
     public boolean insert(Collect collect);
 
 
-    /**
-     *删除
-     * @param songId
-     */
-    public boolean delete(Integer songId);
+
 
     /**
-     *查询所有收藏
-     */
-    public List<Collect> allCollect();
-
-    /**
-     * 查询某个用户的收藏列表
-     * @param userId
-     */
-    public List<Collect> collectOfUserId(Integer userId);
-
-    /**
-     * 查询某个用户是否已经收藏了某个歌曲
+     *根据用户id和歌曲id删除
      * @param userId
      * @param songId
      */
-    public boolean existOfSongId(@Param("userId") Integer userId, @Param("songId") Integer songId);
+    public boolean delete(Integer userId, Integer songId);
+
+
+//    /**
+//     *查询所有收藏
+//     */
+//    public List<Collect> allCollect();
+
+    /**
+     * 根据用户id查询所有的歌曲
+     * @param userId
+     */
+    public List<Song> collectOfUserId(Integer userId);
+
+
+//
+//    /**
+//     * 查询某个用户是否已经收藏了某个歌曲
+//     * @param userId
+//     * @param songId
+//     */
+//    public boolean existOfSongId( Integer userId,  Integer songId);
 }

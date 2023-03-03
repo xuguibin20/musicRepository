@@ -64,6 +64,13 @@
           >
         </template>
       </el-table-column>
+      <el-table-column label="评论管理" width="110px" align="center">
+        <template slot-scope="scope">
+          <el-button size="mini" @click="commentEdit(scope.row.id)"
+            >评论</el-button
+          >
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="170px" align="center">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -310,6 +317,10 @@ export default {
     //转向歌曲管理页面
     songEdit(id) {
       this.$router.push({ path: `/ListSongPage`, query: { id } });
+    },
+    //转向歌曲管理页面
+    commentEdit(id) {
+      this.$router.push({ path: `/Comment`, query: { id } });
     },
   },
 };

@@ -1,0 +1,12 @@
+services:
+  music:
+    build:
+      context: .
+    image: music
+    container_name: music
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    ports:
+      - 80:80
+    restart: always

@@ -1,10 +1,10 @@
 <template>
   <div class="login">
-    <!-- <div class="section-1">
+    <div class="section-1">
       <img src="/img/logos/music.png" />
       <svg-icon icon-class="x"></svg-icon>
       <img src="/img/logos/netease-music.png" />
-    </div> -->
+    </div>
     <div class="section-2">
       <div
         class="card"
@@ -73,20 +73,20 @@ export default {
   height: calc(100vh - 192px);
 }
 
-// .section-1 {
-//   margin-bottom: 16px;
-//   display: flex;
-//   align-items: center;
-//   img {
-//     height: 64px;
-//     margin: 20px;
-//   }
-//   .svg-icon {
-//     height: 24px;
-//     width: 24px;
-//     color: rgba(82, 82, 82, 0.28);
-//   }
-// }
+.section-1 {
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  img {
+    height: 64px;
+    margin: 20px;
+  }
+  .svg-icon {
+    height: 24px;
+    width: 24px;
+    color: rgba(82, 82, 82, 0.28);
+  }
+}
 
 .section-2 {
   display: flex;

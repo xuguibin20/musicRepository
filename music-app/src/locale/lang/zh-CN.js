@@ -6,7 +6,7 @@ export default {
   nav: {
     home: '首页',
     explore: '发现',
-    library: '音乐库',
+    library: '我的音乐',
     search: '搜索',
   },
   home: {
@@ -68,7 +68,7 @@ export default {
   },
   login: {
     accessToAll: '可访问全部数据',
-    loginText: '登录网易云账号',
+    loginText: '',
     search: '搜索网易云账号',
     readonly: '只能读取账号公开数据',
     usernameLogin: '用户名登录',

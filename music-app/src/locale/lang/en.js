@@ -6,7 +6,7 @@ export default {
   nav: {
     home: 'Home',
     explore: 'Explore',
-    library: 'Library',
+    library: 'MyMusic',
     search: 'Search',
   },
   footer: {

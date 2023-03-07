@@ -2,7 +2,7 @@
 /*歌单背景*/
 .song-list-album { margin-top: 70px; padding-top: 150px; background-color: #e6ecf0; }
 
-.song-list-album::before { /*背景*/ content: ""; background-color: #95d2f6; position: absolute; top: 0; width: 100%; height: 220px; }
+.song-list-album::before { /*背景*/ content: ""; background-color: #00a9ff; position: absolute; top: 0; width: 100%; height: 220px; }
 
 /*歌单左侧*/
 .album-slide { float: left; width: 400px; /*歌单图像*/ /*歌单信息*/ }

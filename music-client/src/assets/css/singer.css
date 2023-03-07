@@ -12,4 +12,4 @@ div, ul, li { box-sizing: border-box; }
 
 .singer .singer-header li.active { color: #000000; font-weight: 600; border-bottom: 4px solid #000000; }
 
-.pagination { display: flex; justify-content: flex-start; align-items: stretch; flex-direction: row; flex-wrap: nowrap; }
+.pagination { margin:0 auto;display: flex; justify-content: flex-start; align-items: stretch; flex-direction: row; flex-wrap: nowrap; }

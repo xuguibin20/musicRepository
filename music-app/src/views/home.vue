@@ -13,6 +13,14 @@
       />
     </div>
     <div class="index-row">
+      <div class="title">{{ $t('home.recommendArtist') }}</div>
+      <CoverRow
+        type="artist"
+        :column-number="6"
+        :items="recommendArtists.items"
+      />
+    </div>
+    <div class="index-row">
       <div class="title">
         {{ $t('home.recommendPlaylist') }}
         <router-link to="/explore?category=推荐歌单">{{
@@ -32,14 +40,7 @@
         <FMCard />
       </div>
     </div>
-    <div class="index-row">
-      <div class="title">{{ $t('home.recommendArtist') }}</div>
-      <CoverRow
-        type="artist"
-        :column-number="6"
-        :items="recommendArtists.items"
-      />
-    </div>
+
     <div class="index-row">
       <div class="title">
         {{ $t('home.newAlbum') }}

@@ -1,4 +1,7 @@
 @charset "UTF-8";
+li {
+  list-style: none;
+}
 /*评论*/
 .comment h2 { margin-bottom: 20px; text-align: center; height: 50px; line-height: 50px; border-bottom: 1px solid #000000; }
 
@@ -29,6 +32,16 @@
 
 .popular > li .popular-msg .content { font-size: 1rem; }
 
-.popular > li .up { width: 50px; line-height: 60px; }
+.popular > li .up { width: 50px; position: relative;}
+
+.popular>li .up svg{
+position: absolute;
+  width: 20px;
+    bottom: -20px;
+      right: 56px;
+
+}
+
+
 
 .icon { width: 1em; height: 1em; font-size: 1em; color: #000000; fill: currentColor; overflow: hidden; position: relative; }

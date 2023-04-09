@@ -43,7 +43,7 @@
           </h3>
           <el-button plain @click="dialogVisible = true">了解更多</el-button>
         </div>
-        <div class="swiper1" @click="goHome">
+        <div class="swiper1" @click="goHome()">
           <div class="swiper1-content">
             <div class="margin div6">
               <div class="slider move6">

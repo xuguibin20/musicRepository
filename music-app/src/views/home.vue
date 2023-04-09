@@ -4,13 +4,7 @@
       v-if="settings.showPlaylistsByAppleMusic !== false"
       class="index-row first-row"
     >
-      <div class="title"> 欢迎来到我的音乐主场！ </div>
-      <CoverRow
-        :type="'playlist'"
-        :items="byAppleMusic"
-        sub-text="appleMusic"
-        :image-size="1024"
-      />
+      <div class="first"> 欢迎来到我的音乐主场！ </div>
     </div>
     <div class="index-row">
       <div class="title">{{ $t('home.recommendArtist') }}</div>
@@ -40,7 +34,12 @@
         <FMCard />
       </div>
     </div>
-
+    <CoverRow
+      :type="'playlist'"
+      :items="byAppleMusic"
+      sub-text="appleMusic"
+      :image-size="1024"
+    />
     <div class="index-row">
       <div class="title">
         {{ $t('home.newAlbum') }}
@@ -189,6 +188,12 @@ export default {
     font-weight: 600;
     opacity: 0.68;
   }
+}
+
+.first {
+  font-size: 50px;
+  font-weight: 700;
+  color: #000000;
 }
 
 footer {

@@ -298,7 +298,10 @@ nav.has-custom-titlebar {
 
   .active {
     background: var(--color-primary-bg-for-transparent);
-    input,
+    input {
+      opacity: 1;
+      color: #ffffff;
+    }
     .svg-icon {
       opacity: 1;
       color: var(--color-primary);

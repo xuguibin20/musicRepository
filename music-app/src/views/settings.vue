@@ -39,7 +39,7 @@
           </select>
         </div>
       </div>
-      <div class="item">
+      <!-- <div class="item">
         <div class="left">
           <div class="title"> {{ $t('settings.appearance.text') }} </div>
         </div>
@@ -54,8 +54,8 @@
             >
           </select>
         </div>
-      </div>
-      <div class="item">
+      </div> -->
+      <!-- <div class="item">
         <div class="left">
           <div class="title"> 音乐语种偏好 </div>
         </div>
@@ -68,7 +68,7 @@
             <option value="kr">韩语</option>
           </select>
         </div>
-      </div>
+      </div> -->
 
       <h3>音质</h3>
       <div class="item">
@@ -239,7 +239,7 @@
         </div>
       </div>
 
-      <section v-if="isElectron" class="unm-configuration">
+      <!-- <section v-if="isElectron" class="unm-configuration">
         <h3>UnblockNeteaseMusic</h3>
         <div class="item">
           <div class="left">
@@ -424,7 +424,7 @@
           </button>
           <button v-else @click="lastfmConnect()"> 授权连接 </button>
         </div>
-      </div>
+      </div> -->
       <div v-if="isElectron" class="item">
         <div class="left">
           <div class="title">
@@ -551,7 +551,7 @@
         </div>
       </div>
 
-      <div class="item">
+      <!-- <div class="item">
         <div class="left">
           <div class="title" style="transform: scaleX(-1)">🐈️ 🏳️‍🌈</div>
         </div>
@@ -566,11 +566,11 @@
             <label for="nyancat-style"></label>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div v-if="isElectron">
-        <h3>代理</h3>
-        <div class="item">
+      <!-- <div v-if="isElectron">
+         <h3>代理</h3> 
+         <div class="item">
           <div class="left">
             <div class="title"> 代理协议 </div>
           </div>
@@ -579,11 +579,11 @@
               <option value="noProxy"> 关闭代理 </option>
               <option value="HTTP"> HTTP 代理 </option>
               <option value="HTTPS"> HTTPS 代理 </option>
-              <!-- <option value="SOCKS"> SOCKS 代理 </option> -->
-            </select>
-          </div>
-        </div>
-        <div id="proxy-form" :class="{ disabled: proxyProtocol === 'noProxy' }">
+             <option value="SOCKS"> SOCKS 代理 </option> 
+           </select> 
+          </div> 
+        </div> 
+         <div id="proxy-form" :class="{ disabled: proxyProtocol === 'noProxy' }">
           <input
             v-model="proxyServer"
             class="text-input"
@@ -600,9 +600,9 @@
           />
           <button @click="sendProxyConfig">更新代理</button>
         </div>
-      </div>
+      </div> -->
 
-      <div v-if="isElectron">
+      <!-- <div v-if="isElectron">
         <h3>快捷键</h3>
         <div class="item">
           <div class="left">
@@ -684,7 +684,7 @@
             >恢复默认快捷键</button
           >
         </div>
-      </div>
+      </div> -->
 
       <div class="footer">
         <a
